@@ -3,6 +3,7 @@
 /note
 /.vs
 /Release
+/Debug
 
 *.user
 *.aps
