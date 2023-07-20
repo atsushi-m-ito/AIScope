@@ -1,0 +1,332 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include "windows.h"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+#include "resource.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 日本語 (日本) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)
+LANGUAGE LANG_JAPANESE, SUBLANG_DEFAULT
+#pragma code_page(932)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_AISCOPE             ICON                    "AIScope.ICO"
+
+IDI_SMALL               ICON                    "SMALL.ICO"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDC_AISCOPE2 MENU
+BEGIN
+    POPUP "ﾌｧｲﾙ(&F)"
+    BEGIN
+        MENUITEM "開く",                          IDM_FILE_OPEN
+        MENUITEM SEPARATOR
+        MENUITEM "編集モード",                       IDM_EDIT_START
+        MENUITEM SEPARATOR
+        MENUITEM "ｱﾌﾟﾘｹｰｼｮﾝの終了(&X)",            IDM_EXIT
+    END
+    POPUP "表示"
+    BEGIN
+        POPUP "境界枠"
+        BEGIN
+            MENUITEM "表示",                          IDM_BOXFRAME_ON
+            MENUITEM "非表示",                         IDM_BOXFRAME_OFF
+        END
+        POPUP "射影"
+        BEGIN
+            MENUITEM "透視射影",                        IDM_PROJECTION_PERSE
+            MENUITEM "正射影",                         IDM_PROJECTION_ORTHO
+        END
+        POPUP "マルチデータ"
+        BEGIN
+            MENUITEM "重ねて表示",                       IDM_MULTIVIEW_OVERLAP
+            MENUITEM "並べて表示",                       IDM_MULTIVIEW_SIDEBYSIDE
+        END
+        POPUP "断面モード"
+        BEGIN
+            MENUITEM "1 and 2 and 3",               ID_CROSSSECTIONMODE_1AND2AND3, CHECKED
+            MENUITEM "1 or 2 or 3",                 ID_CROSSSECTIONMODE_1OR2OR3
+            MENUITEM "(1 and 2) or 3",              ID_CROSSSECTIONMODE_1AND2OR3
+            MENUITEM "(1 or 2) and 3",              ID_CROSSSECTIONMODE_1OR2AND3
+        END
+        POPUP "断面の対象"
+        BEGIN
+            MENUITEM "Fieldのみ",                     ID_CROSSSECT_TARGET_FIELD
+            MENUITEM "Fieldと粒子",                    ID_CROSSSECT_TARGET_FIELD_ATOM, CHECKED
+        END
+        MENUITEM "背景色",                         ID_32868, INACTIVE
+    END
+    POPUP "原子分子"
+    BEGIN
+        POPUP "粒子表示"
+        BEGIN
+            MENUITEM "ポリゴンで描画",                     IDM_SHAPE_SPHERE
+            MENUITEM "ポイントスプライトで描画",                IDM_SHAPE_POINT
+            MENUITEM "表示しない",                       IDM_SHAPE_ATOM_NONE
+        END
+        POPUP "粒子色"
+        BEGIN
+            MENUITEM "原子番号",                        IDM_COLOR_ATOMIC
+            MENUITEM "結合数",                         IDM_COLOR_BONDNUM
+            MENUITEM "圧力(一部無効)",                    IDM_COLOR_PRESSURE
+            MENUITEM "高さ(z軸)",                      IDM_COLOR_HEIGHT
+        END
+        POPUP "ボンド表示"
+        BEGIN
+            MENUITEM "表示する",                        IDM_SHAPE_PIPE
+            MENUITEM "表示しない",                       IDM_SHAPE_BOND_NONE
+            MENUITEM "エネルギー流束",                     IDM_SHAPE_ENERGYJ, INACTIVE
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "結合再判定",                       IDM_RESET_BOND
+        MENUITEM "分子に分類",                       IDM_CLASSIFYMOL
+        MENUITEM "配位数解析",                       IDM_COORDINATE
+        MENUITEM "動径分布関数g(r)",                  IDM_RADIALDISTFUNC, INACTIVE
+        MENUITEM "密度分布",                        IDM_DENCITY, INACTIVE
+        MENUITEM "結合配位数",                       IDM_COORDINATE, INACTIVE
+        MENUITEM "ボンド異方性",                      32842, INACTIVE
+        MENUITEM "sp2法線",                       IDM_SP2NORMAL, INACTIVE
+        MENUITEM "吸着水素リスト",                     IDM_HBOUNDC, INACTIVE
+        MENUITEM SEPARATOR
+        MENUITEM "結合配位数(時系列)",                  IDM_TD_COORDINATE
+        MENUITEM "堆積深さ",                        IDM_TD_DEPTH, INACTIVE
+        MENUITEM "水素蓄積量",                       IDM_ADSORBED_H_TD, INACTIVE
+        MENUITEM "g(r)ピーク値",                    IDM_RADIALDISTFUNC_PEAK_TD, INACTIVE
+        MENUITEM "Yield",                       IDM_YIELD_TD, INACTIVE
+        MENUITEM "H/C比",                        IDM_HCRATIO_TD, INACTIVE
+        MENUITEM "分子成長",                        IDM_MOLECULE_TD, INACTIVE
+        MENUITEM "水素蓄積",                        IDM_RETENTION_TD, INACTIVE
+        MENUITEM "堆積物",                         IDM_DEPOSITION_TD, INACTIVE
+        MENUITEM "結合生存量",                       IDM_BONDSURVIVE_TD, INACTIVE
+    END
+    MENUITEM "散乱軌跡",                        ID_32859
+    POPUP "field"
+    BEGIN
+        POPUP "Rendering mode"
+        BEGIN
+            MENUITEM "Ray casting",                 IDM_FIELD_RENDERINGMODE_RAYCASTING, CHECKED
+            MENUITEM "Slicing (spluting)",          IDM_FIELD_RENDERINGMODE_SLICING, INACTIVE
+        END
+    END
+    POPUP "出力"
+    BEGIN
+        MENUITEM "BMP出力",                       IDM_SNAPSHOT_BMP
+        MENUITEM "ラージBMP出力",                    IDM_SNAPSHOT_LARGE_BMP
+        MENUITEM "ステレオBMP出力",                   IDM_STEREO_BMP
+        MENUITEM "EPS画像出力",                     IDM_SNAPSHOT_EPS
+        MENUITEM "md3出力",                       IDM_SNAPSHOT_MD3
+        MENUITEM "fa2出力",                       IDM_SNAPSHOT_FA2
+        MENUITEM "STL出力",                       IDM_SNAPSHOT_STL
+        MENUITEM "STL(GRID)出力",                 IDM_SNAPSHOT_STL_GRID
+    END
+    POPUP "動画"
+    BEGIN
+        POPUP "フレームスキップ"
+        BEGIN
+            MENUITEM "OFF",                         IDM_FRAMESKIP_OFF
+            MENUITEM "2フレームごと",                     IDM_FRAMESKIP_2
+            MENUITEM "4フレームごと",                     IDM_FRAMESKIP_4
+            MENUITEM "8フレームごと",                     IDM_FRAMESKIP_8
+            MENUITEM "10フレームごと",                    IDM_FRAMESKIP_10
+            MENUITEM "16フレームごと",                    IDM_FRAMESKIP_16
+            MENUITEM "20フレームごと",                    IDM_FRAMESKIP_20
+            MENUITEM "32フレームごと",                    IDM_FRAMESKIP_32
+            MENUITEM "64フレームごと",                    IDM_FRAMESKIP_64
+            MENUITEM "100フレームごと",                   IDM_FRAMESKIP_100
+            MENUITEM "1000フレームごと",                  IDM_FRAMESKIP_1000
+            MENUITEM "10000フレームごと",                 32912
+        END
+        MENUITEM SEPARATOR
+        POPUP "再生"
+        BEGIN
+            MENUITEM "全て再生",                        IDM_CHKPOINT_PLAYALL
+            MENUITEM "現在位置から再生",                    IDM_CHKPOINT_PLAYAFTER, INACTIVE
+            MENUITEM "現在位置までを再生",                   IDM_CHKPOINT_PLAYBEFORE, INACTIVE
+        END
+        POPUP "出力"
+        BEGIN
+            MENUITEM "ビットマップ連番出力",                  IDM_CHKPOINT_PLAYWITHBMP
+            MENUITEM "ステレオBMP連番出力",                 IDM_CHKPOINT_PLAYWITHSTEREOBMP
+            MENUITEM "右回転ビットマップ出力",                 IDM_ROTATIONAL_BMP
+            MENUITEM "先頭粒子トレース",                    32903
+            MENUITEM "ビットマップ連番(右回転)",               IDM_CHKPOINT_PLAYWITHBMP_ROTATE_RIGHT
+            MENUITEM "ビットマップ連番(下回転)",               32909
+            MENUITEM "ビットマップ連番(上回転)",               IDM_CHKPOINT_PLAYWITHBMP_ROTATE_UP
+        END
+        POPUP "拡張出力"
+        BEGIN
+            MENUITEM "md3連番出力",                     IDM_CHKPOINT_PLAYWITHMD3
+        END
+        MENUITEM SEPARATOR
+        POPUP "動画モード"
+        BEGIN
+            MENUITEM "単純再生",                        IDM_MOVIEMODE_SIMPLE
+            MENUITEM "チェックポイント使用",                  IDM_MOVIEMODE_CHKPOINT
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "チェックポイントの追加",                 IDM_CHKPOINT_INSERT, INACTIVE
+        MENUITEM "チェックポイントの保存",                 IDM_CHKPOINT_SAVE, INACTIVE
+        MENUITEM "チェックポイントの読み込み",               IDM_CHKPOINT_LOAD, INACTIVE
+    END
+    POPUP "ﾍﾙﾌﾟ(&H)"
+    BEGIN
+        MENUITEM "このアプリについて(&A) ...",           IDM_ABOUT
+        MENUITEM SEPARATOR
+        MENUITEM "設定ファイルを開く",                   IDM_OPEN_SETTING
+        MENUITEM "設定ファイルの再読み込み",                32843, INACTIVE
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDC_AISCOPE2 ACCELERATORS
+BEGIN
+    "?",            IDM_ABOUT,              ASCII,  ALT
+    "/",            IDM_ABOUT,              ASCII,  ALT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 22, 17, 230, 76
+STYLE DS_SETFONT | DS_MODALFRAME | DS_3DLOOK | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_WINDOWEDGE
+CAPTION "ﾊﾞｰｼﾞｮﾝ情報"
+FONT 8, "System", 0, 0, 0x0
+BEGIN
+    ICON            IDI_AISCOPE,IDC_MYICON,14,9,20,20
+    LTEXT           "AIScope 3.6.11",IDC_STATIC,49,10,51,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2022 A.M.Ito All Rights Reserved.",IDC_STATIC,49,20,168,8
+    DEFPUSHBUTTON   "OK",IDOK,101,48,30,11,WS_GROUP
+END
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+2 TEXTINCLUDE 
+BEGIN
+    "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""windows.h""\r\n"
+    "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""resource.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 75
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_ABOUTBOX AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// PNG
+//
+
+IDB_PNG_NEXT_MOV        PNG                     "..\\resource\\button3.png"
+
+IDB_PNG_PREV_MOV        PNG                     "..\\resource\\button4.png"
+
+IDB_PNG_STOP            PNG                     "..\\resource\\button5.png"
+
+IDB_PNG_NEXT_1          PNG                     "..\\resource\\button_plus1.png"
+
+IDB_PNG_PREV_1          PNG                     "..\\resource\\button_minus1.png"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_APP_TITLE           "AIScope3"
+    IDC_AISCOPE2            "AISCOPE3"
+END
+
+#endif    // 日本語 (日本) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

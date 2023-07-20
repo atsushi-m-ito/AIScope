@@ -1,0 +1,808 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="リソース">
+      <UniqueIdentifier>{52635090-ac3f-44e9-abbd-ff4a7e71e6d3}</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+    <Filter Include="ソースファイル">
+      <UniqueIdentifier>{630cb4a8-fdd2-45e4-8962-c47096231ddf}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="ソースファイル\FileIO">
+      <UniqueIdentifier>{d231f6d7-5326-4bd7-bcae-e663b086cd9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソースファイル\FileIO\particle">
+      <UniqueIdentifier>{b06d5cb6-cd61-4a93-b770-929131bfbb11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソースファイル\FileIO\field">
+      <UniqueIdentifier>{8f64f876-4e9a-4c41-86b6-511c33634425}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソースファイル\FileIO\etc">
+      <UniqueIdentifier>{316ca728-8b21-42ff-a2d9-d7ead9a7bb78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソースファイル\FileIO\KMC">
+      <UniqueIdentifier>{12f90825-ee75-4f1b-ad7b-527ae17a2220}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソースファイル\FileIO\polygon">
+      <UniqueIdentifier>{2859a894-0269-4da7-bd71-060934d6ec2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソースファイル\FileIO\trajectory">
+      <UniqueIdentifier>{b26062ff-51cb-4979-9bbb-e447441982c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソースファイル\FileIO\vmec">
+      <UniqueIdentifier>{ebe525e9-9212-4384-971d-50f9afcdd428}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソースファイル\直接描画GUI">
+      <UniqueIdentifier>{272a802e-f203-4756-b8bc-603d4aff1f2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソースファイル\GLIPS">
+      <UniqueIdentifier>{ffa43026-61cd-4da1-a2df-c586a668308b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソースファイル\UIとの接続部分">
+      <UniqueIdentifier>{59f2d71a-5160-44bb-b8c5-1fbb1388cd6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソースファイル\データ編集">
+      <UniqueIdentifier>{79be54ff-947c-4170-8264-1a0188f0bf9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソースファイル\Graphic">
+      <UniqueIdentifier>{789f800b-9af4-4a92-a89b-6a4df4f5400f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソースファイル\Win32Desktop">
+      <UniqueIdentifier>{c071b402-5adb-4809-90b7-e9964d996102}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソースファイル\共通操作">
+      <UniqueIdentifier>{c1dcdf6b-4af7-4046-ac3f-bf4644020ead}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソースファイル\共通操作\傾斜センサー">
+      <UniqueIdentifier>{026fe2cb-2ad1-4231-8d34-c5746239533b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソースファイル\汎用ツール">
+      <UniqueIdentifier>{c79e9dbf-6208-48d7-ac59-0dd39ed3f113}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソースファイル\未整理">
+      <UniqueIdentifier>{2e9a163d-2198-42df-bf6d-05d7502cca4a}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="ソースファイル\未整理\pending">
+      <UniqueIdentifier>{e6f84dd9-118d-4caa-b194-ab06078e64af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソースファイル\Graphic\DirectX11">
+      <UniqueIdentifier>{65f2be13-fa71-4c6b-afdc-7ab8c5946a80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソースファイル\Graphic\DirectX11\シェーダー">
+      <UniqueIdentifier>{0b5c92d8-2f8d-4b8d-8d21-76ccb2824eb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソースファイル\Graphic\OpenGL1.5">
+      <UniqueIdentifier>{18e8967f-6f8e-4cfc-9969-1925e66b640b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソースファイル\Graphic\Textureリソース読み込み">
+      <UniqueIdentifier>{5c316841-d5a5-4bfe-884c-0955e52710f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソースファイル\Graphic\OpenGL1.5\CustomRenderer">
+      <UniqueIdentifier>{5c66c02c-45d2-41e7-ba0d-eaa8e7d6f181}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソースファイル\Graphic\DirectX11\GraphicDevice">
+      <UniqueIdentifier>{7dd9fd0c-3f98-4283-be74-74f969426fb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソースファイル\Graphic\OpenGL1.5\GraphicDevice">
+      <UniqueIdentifier>{33045645-eeed-474a-aba3-50767384e519}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソースファイル\Graphic\Geometry">
+      <UniqueIdentifier>{963a62e7-ca46-446e-ab03-5af9b7571ad9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソースファイル\DataType">
+      <UniqueIdentifier>{eee21a01-e9f1-498b-9045-17fef5889810}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソースファイル\msz">
+      <UniqueIdentifier>{e67ba1bd-e6e5-4eb6-9ef9-65701c136660}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソースファイル\Graphic\Direct2D">
+      <UniqueIdentifier>{f89bec73-1153-4d8b-bc87-c32673b2877f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソースファイル\Graphic\DirectX11\aidx">
+      <UniqueIdentifier>{87cee720-e19a-44fb-b9b3-41cd4ca434b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソースファイル\Graphic\DirectX11\CustomRenderer">
+      <UniqueIdentifier>{3cd97b53-fb9b-453f-8e29-ac82ae23d1be}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\windib2.cpp">
+      <Filter>ソースファイル\FileIO</Filter>
+    </ClCompile>
+    <ClCompile Include="source\glips\global.cpp">
+      <Filter>ソースファイル\GLIPS</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LinkedCellList.cpp">
+      <Filter>ソースファイル\GLIPS</Filter>
+    </ClCompile>
+    <ClCompile Include="source\AIScope.cpp">
+      <Filter>ソースファイル\UIとの接続部分</Filter>
+    </ClCompile>
+    <ClCompile Include="source\plugTDTemplate.cpp">
+      <Filter>ソースファイル\未整理\pending</Filter>
+    </ClCompile>
+    <ClCompile Include="source\plugTDDepth.cpp">
+      <Filter>ソースファイル\未整理\pending</Filter>
+    </ClCompile>
+    <ClCompile Include="source\plugTDCoordinate.cpp">
+      <Filter>ソースファイル\未整理\pending</Filter>
+    </ClCompile>
+    <ClCompile Include="source\plugSSTemplate.cpp">
+      <Filter>ソースファイル\未整理\pending</Filter>
+    </ClCompile>
+    <ClCompile Include="source\CreateSphere.cpp">
+      <Filter>ソースファイル\未整理\pending</Filter>
+    </ClCompile>
+    <ClCompile Include="source\camera.cpp">
+      <Filter>ソースファイル\UIとの接続部分</Filter>
+    </ClCompile>
+    <ClCompile Include="source\InitializeUI.cpp">
+      <Filter>ソースファイル\直接描画GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UIPanel.cpp">
+      <Filter>ソースファイル\直接描画GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LoadSettingFile.cpp">
+      <Filter>ソースファイル\UIとの接続部分</Filter>
+    </ClCompile>
+    <ClCompile Include="source\InitializewinMenu.cpp">
+      <Filter>ソースファイル\直接描画GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ClassifyMolecule.cpp">
+      <Filter>ソースファイル\未整理</Filter>
+    </ClCompile>
+    <ClCompile Include="source\OutCoordinationNumber.cpp">
+      <Filter>ソースファイル\未整理</Filter>
+    </ClCompile>
+    <ClCompile Include="source\OrientationSensor.cpp">
+      <Filter>ソースファイル\共通操作\傾斜センサー</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ResetBond.cpp">
+      <Filter>ソースファイル\データ編集</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ResetColorByPressure.cpp">
+      <Filter>ソースファイル\データ編集</Filter>
+    </ClCompile>
+    <ClCompile Include="source\bin_reader.cpp">
+      <Filter>ソースファイル\FileIO\etc</Filter>
+    </ClCompile>
+    <ClCompile Include="source\bif_reader.cpp">
+      <Filter>ソースファイル\FileIO\field</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Field3DLoader.cpp">
+      <Filter>ソースファイル\FileIO\field</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LMC_Holder.cpp">
+      <Filter>ソースファイル\FileIO\KMC</Filter>
+    </ClCompile>
+    <ClCompile Include="source\lmc_reader.cpp">
+      <Filter>ソースファイル\FileIO\KMC</Filter>
+    </ClCompile>
+    <ClCompile Include="source\md3_reader.cpp">
+      <Filter>ソースファイル\FileIO\particle</Filter>
+    </ClCompile>
+    <ClCompile Include="source\md3_writer.cpp">
+      <Filter>ソースファイル\FileIO\particle</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MDLoader.cpp">
+      <Filter>ソースファイル\FileIO\particle</Filter>
+    </ClCompile>
+    <ClCompile Include="source\fa2_reader.cpp">
+      <Filter>ソースファイル\FileIO\particle</Filter>
+    </ClCompile>
+    <ClCompile Include="source\fa2_writer.cpp">
+      <Filter>ソースファイル\FileIO\particle</Filter>
+    </ClCompile>
+    <ClCompile Include="source\fad_reader.cpp">
+      <Filter>ソースファイル\FileIO\particle</Filter>
+    </ClCompile>
+    <ClCompile Include="source\fad_writer.cpp">
+      <Filter>ソースファイル\FileIO\particle</Filter>
+    </ClCompile>
+    <ClCompile Include="source\io64.cpp">
+      <Filter>ソースファイル\FileIO\etc</Filter>
+    </ClCompile>
+    <ClCompile Include="source\epsrender.cpp">
+      <Filter>ソースファイル\FileIO\etc</Filter>
+    </ClCompile>
+    <ClCompile Include="source\outeps.cpp">
+      <Filter>ソースファイル\FileIO\etc</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PMDLoader.cpp">
+      <Filter>ソースファイル\FileIO\polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="source\trajectory.cpp">
+      <Filter>ソースファイル\FileIO\trajectory</Filter>
+    </ClCompile>
+    <ClCompile Include="source\vmec_reader.cpp">
+      <Filter>ソースファイル\FileIO\vmec</Filter>
+    </ClCompile>
+    <ClCompile Include="source\wincommand.cpp">
+      <Filter>ソースファイル\Win32Desktop</Filter>
+    </ClCompile>
+    <ClCompile Include="source\winmain.cpp">
+      <Filter>ソースファイル\Win32Desktop</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PMXLoader.cpp">
+      <Filter>ソースファイル\FileIO\polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="source\BasicRenderer.cpp">
+      <Filter>ソースファイル\Graphic\DirectX11\CustomRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RenderDX11.cpp">
+      <Filter>ソースファイル\Graphic\DirectX11\CustomRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\AtomRendererGL.cpp">
+      <Filter>ソースファイル\Graphic\OpenGL1.5\CustomRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\BCARendererGL.cpp">
+      <Filter>ソースファイル\Graphic\OpenGL1.5\CustomRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DrawUIPanelGL15.cpp">
+      <Filter>ソースファイル\Graphic\OpenGL1.5\CustomRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\FieldRendererGL.cpp">
+      <Filter>ソースファイル\Graphic\OpenGL1.5\CustomRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\glsprite.cpp">
+      <Filter>ソースファイル\Graphic\OpenGL1.5\CustomRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LMCRendererGL.cpp">
+      <Filter>ソースファイル\Graphic\OpenGL1.5\CustomRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\OutputGL.cpp">
+      <Filter>ソースファイル\Graphic\OpenGL1.5\CustomRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PointRendererGL.cpp">
+      <Filter>ソースファイル\Graphic\OpenGL1.5\CustomRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RenderGL15.cpp">
+      <Filter>ソースファイル\Graphic\OpenGL1.5\CustomRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\sdkwgl.cpp">
+      <Filter>ソースファイル\Graphic\OpenGL1.5\CustomRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\TextureGL.cpp">
+      <Filter>ソースファイル\Graphic\OpenGL1.5\CustomRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\CommonShader.cpp">
+      <Filter>ソースファイル\Graphic\DirectX11\GraphicDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="source\TextureManagerDX11.cpp">
+      <Filter>ソースファイル\Graphic\DirectX11\GraphicDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MQOLoader.cpp">
+      <Filter>ソースファイル\FileIO\polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="source\VRMLLoader.cpp">
+      <Filter>ソースファイル\FileIO\polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="source\JobParam.cpp">
+      <Filter>ソースファイル\汎用ツール</Filter>
+    </ClCompile>
+    <ClCompile Include="source\krb_reader.cpp">
+      <Filter>ソースファイル\FileIO\KMC</Filter>
+    </ClCompile>
+    <ClCompile Include="source\WriteBMP.cpp">
+      <Filter>ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="source\CellPartition.cpp">
+      <Filter>ソースファイル\GLIPS</Filter>
+    </ClCompile>
+    <ClCompile Include="source\spk_reader.cpp">
+      <Filter>ソースファイル\FileIO\KMC</Filter>
+    </ClCompile>
+    <ClCompile Include="source\output_bmp.cpp">
+      <Filter>ソースファイル\Graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="source\stl_grid_writer.cpp">
+      <Filter>ソースファイル\FileIO\polygon</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\filelist.h">
+      <Filter>ソースファイル\未整理</Filter>
+    </ClInclude>
+    <ClInclude Include="source\listTemplate.h">
+      <Filter>ソースファイル\未整理</Filter>
+    </ClInclude>
+    <ClInclude Include="source\plugSSCoordinate.h">
+      <Filter>ソースファイル\未整理</Filter>
+    </ClInclude>
+    <ClInclude Include="source\plugTDCoordinate.h">
+      <Filter>ソースファイル\未整理</Filter>
+    </ClInclude>
+    <ClInclude Include="source\plugTDDepth.h">
+      <Filter>ソースファイル\未整理</Filter>
+    </ClInclude>
+    <ClInclude Include="source\quotationtok.h">
+      <Filter>ソースファイル\未整理</Filter>
+    </ClInclude>
+    <ClInclude Include="source\BOND_INFO.h">
+      <Filter>ソースファイル\未整理</Filter>
+    </ClInclude>
+    <ClInclude Include="source\atomic_color.h">
+      <Filter>ソースファイル\未整理</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ATOMS_DATA.h">
+      <Filter>ソースファイル\未整理</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ClassifyMolecule.h">
+      <Filter>ソースファイル\未整理</Filter>
+    </ClInclude>
+    <ClInclude Include="source\OutCoordinationNumber.h">
+      <Filter>ソースファイル\未整理</Filter>
+    </ClInclude>
+    <ClInclude Include="source\INotifyProperty.h">
+      <Filter>ソースファイル\直接描画GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MyPanelID.h">
+      <Filter>ソースファイル\直接描画GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\NotifyDistributer.h">
+      <Filter>ソースファイル\直接描画GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UIPanel.h">
+      <Filter>ソースファイル\直接描画GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\WinMenuRadio.h">
+      <Filter>ソースファイル\直接描画GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\LCL_CreateBondList.h">
+      <Filter>ソースファイル\GLIPS</Filter>
+    </ClInclude>
+    <ClInclude Include="source\LinkedCellList.h">
+      <Filter>ソースファイル\GLIPS</Filter>
+    </ClInclude>
+    <ClInclude Include="source\glips\mod.h">
+      <Filter>ソースファイル\GLIPS</Filter>
+    </ClInclude>
+    <ClInclude Include="source\glips\myomptune.h">
+      <Filter>ソースファイル\GLIPS</Filter>
+    </ClInclude>
+    <ClInclude Include="source\glips\omptune.h">
+      <Filter>ソースファイル\GLIPS</Filter>
+    </ClInclude>
+    <ClInclude Include="source\AIScope.h">
+      <Filter>ソースファイル\UIとの接続部分</Filter>
+    </ClInclude>
+    <ClInclude Include="source\AIScopeProperty.h">
+      <Filter>ソースファイル\UIとの接続部分</Filter>
+    </ClInclude>
+    <ClInclude Include="source\camera.h">
+      <Filter>ソースファイル\UIとの接続部分</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PropertyList.h">
+      <Filter>ソースファイル\UIとの接続部分</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UICamera.h">
+      <Filter>ソースファイル\UIとの接続部分</Filter>
+    </ClInclude>
+    <ClInclude Include="source\GraphicDeviceGL15.h">
+      <Filter>ソースファイル\Graphic\OpenGL1.5\GraphicDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="source\windib2.h">
+      <Filter>ソースファイル\FileIO</Filter>
+    </ClInclude>
+    <ClInclude Include="source\OrientationSensor.h">
+      <Filter>ソースファイル\共通操作\傾斜センサー</Filter>
+    </ClInclude>
+    <ClInclude Include="source\mat44.h">
+      <Filter>ソースファイル\汎用ツール</Filter>
+    </ClInclude>
+    <ClInclude Include="source\renew.h">
+      <Filter>ソースファイル\汎用ツール</Filter>
+    </ClInclude>
+    <ClInclude Include="source\vec4.h">
+      <Filter>ソースファイル\汎用ツール</Filter>
+    </ClInclude>
+    <ClInclude Include="source\debugprint.h">
+      <Filter>ソースファイル\汎用ツール</Filter>
+    </ClInclude>
+    <ClInclude Include="source\outeps.h">
+      <Filter>ソースファイル\汎用ツール</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ResetBond.h">
+      <Filter>ソースファイル\データ編集</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ResetColorByPressure.h">
+      <Filter>ソースファイル\データ編集</Filter>
+    </ClInclude>
+    <ClInclude Include="source\setting.h">
+      <Filter>ソースファイル\UIとの接続部分</Filter>
+    </ClInclude>
+    <ClInclude Include="source\bin_reader.h">
+      <Filter>ソースファイル\FileIO\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="source\bif_reader.h">
+      <Filter>ソースファイル\FileIO\field</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Field3DLoader.h">
+      <Filter>ソースファイル\FileIO\field</Filter>
+    </ClInclude>
+    <ClInclude Include="source\LMC_Holder.h">
+      <Filter>ソースファイル\FileIO\KMC</Filter>
+    </ClInclude>
+    <ClInclude Include="source\lmc_reader.h">
+      <Filter>ソースファイル\FileIO\KMC</Filter>
+    </ClInclude>
+    <ClInclude Include="source\md3_writer.h">
+      <Filter>ソースファイル\FileIO\particle</Filter>
+    </ClInclude>
+    <ClInclude Include="source\md3_reader.h">
+      <Filter>ソースファイル\FileIO\particle</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MDLoader.h">
+      <Filter>ソースファイル\FileIO\particle</Filter>
+    </ClInclude>
+    <ClInclude Include="source\fa2_reader.h">
+      <Filter>ソースファイル\FileIO\particle</Filter>
+    </ClInclude>
+    <ClInclude Include="source\fa2_writer.h">
+      <Filter>ソースファイル\FileIO\particle</Filter>
+    </ClInclude>
+    <ClInclude Include="source\fad_reader.h">
+      <Filter>ソースファイル\FileIO\particle</Filter>
+    </ClInclude>
+    <ClInclude Include="source\fad_writer.h">
+      <Filter>ソースファイル\FileIO\particle</Filter>
+    </ClInclude>
+    <ClInclude Include="source\io64.h">
+      <Filter>ソースファイル\FileIO\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="source\io64w2l.h">
+      <Filter>ソースファイル\FileIO\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="source\epsrender.h">
+      <Filter>ソースファイル\FileIO\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PMDLoader.h">
+      <Filter>ソースファイル\FileIO\polygon</Filter>
+    </ClInclude>
+    <ClInclude Include="source\trajectory.h">
+      <Filter>ソースファイル\FileIO\trajectory</Filter>
+    </ClInclude>
+    <ClInclude Include="source\vmec_reader.h">
+      <Filter>ソースファイル\FileIO\vmec</Filter>
+    </ClInclude>
+    <ClInclude Include="source\vmec_repository.h">
+      <Filter>ソースファイル\FileIO\vmec</Filter>
+    </ClInclude>
+    <ClInclude Include="source\trans_endian.h">
+      <Filter>ソースファイル\FileIO\etc</Filter>
+    </ClInclude>
+    <ClInclude Include="source\winmain.h">
+      <Filter>ソースファイル\Win32Desktop</Filter>
+    </ClInclude>
+    <ClInclude Include="source\resource.h">
+      <Filter>ソースファイル\Win32Desktop</Filter>
+    </ClInclude>
+    <ClInclude Include="source\atomic_element.h">
+      <Filter>ソースファイル\汎用ツール</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PMXLoader.h">
+      <Filter>ソースファイル\FileIO\polygon</Filter>
+    </ClInclude>
+    <ClInclude Include="source\IPolyRepository.h">
+      <Filter>ソースファイル\FileIO\polygon</Filter>
+    </ClInclude>
+    <ClInclude Include="source\IGraphicDevice.h">
+      <Filter>ソースファイル\Graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="source\GraphicDeviceDX11.h">
+      <Filter>ソースファイル\Graphic\DirectX11\GraphicDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="source\visual.h">
+      <Filter>ソースファイル\Win32Desktop</Filter>
+    </ClInclude>
+    <ClInclude Include="source\BasicRenderer.h">
+      <Filter>ソースファイル\Graphic\DirectX11\CustomRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PointRendererDX11.h">
+      <Filter>ソースファイル\Graphic\DirectX11\CustomRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PointSpriteDX11.h">
+      <Filter>ソースファイル\Graphic\DirectX11\CustomRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\RenderDX11.h">
+      <Filter>ソースファイル\Graphic\DirectX11\CustomRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\RenderingProperty.h">
+      <Filter>ソースファイル\Graphic\DirectX11\CustomRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\sdkdx11.h">
+      <Filter>ソースファイル\Graphic\DirectX11\CustomRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\VNTRenderer.h">
+      <Filter>ソースファイル\Graphic\DirectX11\CustomRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\AtomRendererGL.h">
+      <Filter>ソースファイル\Graphic\OpenGL1.5\CustomRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\BCARendererGL.h">
+      <Filter>ソースファイル\Graphic\OpenGL1.5\CustomRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\FieldRendererGL.h">
+      <Filter>ソースファイル\Graphic\OpenGL1.5\CustomRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\glsprite.h">
+      <Filter>ソースファイル\Graphic\OpenGL1.5\CustomRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\LMCRendererGL.h">
+      <Filter>ソースファイル\Graphic\OpenGL1.5\CustomRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PointRendererGL.h">
+      <Filter>ソースファイル\Graphic\OpenGL1.5\CustomRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\RenderGL15.h">
+      <Filter>ソースファイル\Graphic\OpenGL1.5\CustomRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\sdkwgl.h">
+      <Filter>ソースファイル\Graphic\OpenGL1.5\CustomRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\wglext.h">
+      <Filter>ソースファイル\Graphic\OpenGL1.5\CustomRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\CommonShader.h">
+      <Filter>ソースファイル\Graphic\DirectX11\GraphicDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="source\TextureManagerDX11.h">
+      <Filter>ソースファイル\Graphic\DirectX11\GraphicDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="source\tstring.h">
+      <Filter>ソースファイル\Graphic\DirectX11\GraphicDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="source\WIC_LoadImage.h">
+      <Filter>ソースファイル\Graphic\Textureリソース読み込み</Filter>
+    </ClInclude>
+    <ClInclude Include="source\mychardump.h">
+      <Filter>ソースファイル\汎用ツール</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MQOLoader.h">
+      <Filter>ソースファイル\FileIO\polygon</Filter>
+    </ClInclude>
+    <ClInclude Include="source\VRMLLoader.h">
+      <Filter>ソースファイル\FileIO\polygon</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ReadWord.h">
+      <Filter>ソースファイル\FileIO\polygon</Filter>
+    </ClInclude>
+    <ClInclude Include="source\JobParam.h">
+      <Filter>ソースファイル\汎用ツール</Filter>
+    </ClInclude>
+    <ClInclude Include="source\krb_reader.h">
+      <Filter>ソースファイル\FileIO\KMC</Filter>
+    </ClInclude>
+    <ClInclude Include="source\KrbRendererDX11.h">
+      <Filter>ソースファイル\Graphic\DirectX11\CustomRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\BoxRendererDX11.h">
+      <Filter>ソースファイル\Graphic\DirectX11\CustomRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\WriteBMP.h">
+      <Filter>ソースファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="source\trajectory2.h">
+      <Filter>ソースファイル\FileIO\trajectory</Filter>
+    </ClInclude>
+    <ClInclude Include="source\GeometrySphere.h">
+      <Filter>ソースファイル\Graphic\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="source\VertexTypes.h">
+      <Filter>ソースファイル\Graphic\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="source\GeometryCylinder.h">
+      <Filter>ソースファイル\Graphic\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="source\material_info.h">
+      <Filter>ソースファイル\Graphic\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="source\CellPartition.h">
+      <Filter>ソースファイル\GLIPS</Filter>
+    </ClInclude>
+    <ClInclude Include="source\INeighborFinder.h">
+      <Filter>ソースファイル\GLIPS</Filter>
+    </ClInclude>
+    <ClInclude Include="source\atom_sort.h">
+      <Filter>ソースファイル\GLIPS</Filter>
+    </ClInclude>
+    <ClInclude Include="source\vec3.h">
+      <Filter>ソースファイル\汎用ツール</Filter>
+    </ClInclude>
+    <ClInclude Include="source\mat33.h">
+      <Filter>ソースファイル\汎用ツール</Filter>
+    </ClInclude>
+    <ClInclude Include="source\kmc_path.h">
+      <Filter>ソースファイル\FileIO\particle</Filter>
+    </ClInclude>
+    <ClInclude Include="source\spk_reader.h">
+      <Filter>ソースファイル\FileIO\KMC</Filter>
+    </ClInclude>
+    <ClInclude Include="source\IDataAtoms.h">
+      <Filter>ソースファイル\DataType</Filter>
+    </ClInclude>
+    <ClInclude Include="source\spk_container.h">
+      <Filter>ソースファイル\FileIO\KMC</Filter>
+    </ClInclude>
+    <ClInclude Include="source\CylinderStripRendererDX11.h">
+      <Filter>ソースファイル\Graphic\DirectX11\CustomRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\GraphicDeviceDX11withD2D.h">
+      <Filter>ソースファイル\Graphic\DirectX11\GraphicDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="source\msz\atomic_number.h">
+      <Filter>ソースファイル\msz</Filter>
+    </ClInclude>
+    <ClInclude Include="source\msz\fa2_writer2.h">
+      <Filter>ソースファイル\msz</Filter>
+    </ClInclude>
+    <ClInclude Include="source\msz\md3_reader2.h">
+      <Filter>ソースファイル\msz</Filter>
+    </ClInclude>
+    <ClInclude Include="source\msz\md3_writer2.h">
+      <Filter>ソースファイル\msz</Filter>
+    </ClInclude>
+    <ClInclude Include="source\drawpanel.h">
+      <Filter>ソースファイル\Graphic\Direct2D</Filter>
+    </ClInclude>
+    <ClInclude Include="source\release.h">
+      <Filter>ソースファイル\Win32Desktop</Filter>
+    </ClInclude>
+    <ClInclude Include="source\targetver.h">
+      <Filter>ソースファイル\Win32Desktop</Filter>
+    </ClInclude>
+    <ClInclude Include="source\SphereRendererDX11.h">
+      <Filter>ソースファイル\Graphic\DirectX11\CustomRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\SphereColorTableRendererDX11.h">
+      <Filter>ソースファイル\Graphic\DirectX11\CustomRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\aidx_constantbuffer.h">
+      <Filter>ソースファイル\Graphic\DirectX11\aidx</Filter>
+    </ClInclude>
+    <ClInclude Include="source\aidx_saferelease.h">
+      <Filter>ソースファイル\Graphic\DirectX11\aidx</Filter>
+    </ClInclude>
+    <ClInclude Include="source\aidx_vertexbuffer.h">
+      <Filter>ソースファイル\Graphic\DirectX11\aidx</Filter>
+    </ClInclude>
+    <ClInclude Include="source\stl_writer.h">
+      <Filter>ソースファイル\FileIO\polygon</Filter>
+    </ClInclude>
+    <ClInclude Include="source\stl_grid_writer.h">
+      <Filter>ソースファイル\FileIO\polygon</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Tex3DRendererDX11.h">
+      <Filter>ソースファイル\Graphic\DirectX11\CustomRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\RayCastingDX.h">
+      <Filter>ソースファイル\Graphic\DirectX11\CustomRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\cube_reader.h">
+      <Filter>ソースファイル\FileIO\field</Filter>
+    </ClInclude>
+    <ClInclude Include="source\FieldRGBA.h">
+      <Filter>ソースファイル\FileIO\field</Filter>
+    </ClInclude>
+    <ClInclude Include="source\CrossSection.h">
+      <Filter>ソースファイル\Graphic\DirectX11\CustomRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UserCrossSection.h">
+      <Filter>ソースファイル\UIとの接続部分</Filter>
+    </ClInclude>
+    <ClInclude Include="source\CylinderColorTableRendererDX11.h">
+      <Filter>ソースファイル\未整理</Filter>
+    </ClInclude>
+    <ClInclude Include="source\CylinderRendererDX11.h">
+      <Filter>ソースファイル\未整理</Filter>
+    </ClInclude>
+    <ClInclude Include="source\filterRGBDepth.h">
+      <Filter>ソースファイル\Graphic\DirectX11\GraphicDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="source\RayCastingDX_depth.h">
+      <Filter>ソースファイル\Graphic\DirectX11\CustomRenderer</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="source\AIScope.ico">
+      <Filter>リソース</Filter>
+    </Image>
+    <Image Include="source\small.ico">
+      <Filter>リソース</Filter>
+    </Image>
+    <Image Include="resource\button3.png">
+      <Filter>リソース</Filter>
+    </Image>
+    <Image Include="resource\button1.png" />
+    <Image Include="resource\button2.png" />
+    <Image Include="resource\button4.png" />
+    <Image Include="resource\button5.png" />
+    <Image Include="resource\button_plus1.png" />
+    <Image Include="resource\button_minus1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="source\vs02.hlsl">
+      <Filter>ソースファイル\Graphic\DirectX11\シェーダー</Filter>
+    </FxCompile>
+    <FxCompile Include="source\ps_inst.hlsl">
+      <Filter>ソースファイル\Graphic\DirectX11\シェーダー</Filter>
+    </FxCompile>
+    <FxCompile Include="source\ps02.hlsl">
+      <Filter>ソースファイル\Graphic\DirectX11\シェーダー</Filter>
+    </FxCompile>
+    <FxCompile Include="source\gs_point_color.hlsl">
+      <Filter>ソースファイル\Graphic\DirectX11\シェーダー</Filter>
+    </FxCompile>
+    <FxCompile Include="source\vs_point_color.hlsl">
+      <Filter>ソースファイル\Graphic\DirectX11\シェーダー</Filter>
+    </FxCompile>
+    <FxCompile Include="source\ps_point_color.hlsl">
+      <Filter>ソースファイル\Graphic\DirectX11\シェーダー</Filter>
+    </FxCompile>
+    <FxCompile Include="source\vs_color.hlsl">
+      <Filter>ソースファイル\Graphic\DirectX11\シェーダー</Filter>
+    </FxCompile>
+    <FxCompile Include="source\ps_color.hlsl">
+      <Filter>ソースファイル\Graphic\DirectX11\シェーダー</Filter>
+    </FxCompile>
+    <FxCompile Include="source\ps_texture.hlsl">
+      <Filter>ソースファイル\Graphic\DirectX11\シェーダー</Filter>
+    </FxCompile>
+    <FxCompile Include="source\ps_set_color.hlsl">
+      <Filter>ソースファイル\Graphic\DirectX11\シェーダー</Filter>
+    </FxCompile>
+    <FxCompile Include="source\vs_texture.hlsl">
+      <Filter>ソースファイル\Graphic\DirectX11\シェーダー</Filter>
+    </FxCompile>
+    <FxCompile Include="source\vs_pnt2pn.hlsl">
+      <Filter>ソースファイル\Graphic\DirectX11\シェーダー</Filter>
+    </FxCompile>
+    <FxCompile Include="source\vs_point.hlsl">
+      <Filter>ソースファイル\Graphic\DirectX11\シェーダー</Filter>
+    </FxCompile>
+    <FxCompile Include="source\vs_point_color_to_ps.hlsl">
+      <Filter>ソースファイル\Graphic\DirectX11\シェーダー</Filter>
+    </FxCompile>
+    <FxCompile Include="source\vs_inst_color.hlsl">
+      <Filter>ソースファイル\Graphic\DirectX11\シェーダー</Filter>
+    </FxCompile>
+    <FxCompile Include="source\vs_filter_DoF.hlsl">
+      <Filter>ソースファイル\Graphic\DirectX11\シェーダー</Filter>
+    </FxCompile>
+    <FxCompile Include="source\ps_filter_DoF.hlsl">
+      <Filter>ソースファイル\Graphic\DirectX11\シェーダー</Filter>
+    </FxCompile>
+    <FxCompile Include="source\vs_inst_color_table.hlsl">
+      <Filter>ソースファイル\Graphic\DirectX11\シェーダー</Filter>
+    </FxCompile>
+    <FxCompile Include="source\vs_texture3d.hlsl">
+      <Filter>ソースファイル\Graphic\DirectX11\シェーダー</Filter>
+    </FxCompile>
+    <FxCompile Include="source\ps_texture3d.hlsl">
+      <Filter>ソースファイル\Graphic\DirectX11\シェーダー</Filter>
+    </FxCompile>
+    <FxCompile Include="source\vs_raycasting.hlsl">
+      <Filter>ソースファイル\Graphic\DirectX11\シェーダー</Filter>
+    </FxCompile>
+    <FxCompile Include="source\ps_raycasting.hlsl">
+      <Filter>ソースファイル\Graphic\DirectX11\シェーダー</Filter>
+    </FxCompile>
+    <FxCompile Include="source\ps_raycasting_depth.hlsl">
+      <Filter>ソースファイル\Graphic\DirectX11\シェーダー</Filter>
+    </FxCompile>
+    <FxCompile Include="source\vs_raycasting_depth.hlsl">
+      <Filter>ソースファイル\Graphic\DirectX11\シェーダー</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="更新履歴.txt" />
+    <Text Include="定数一覧.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="source\AIScope.rc">
+      <Filter>リソース</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

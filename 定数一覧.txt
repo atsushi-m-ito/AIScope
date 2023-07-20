@@ -1,0 +1,13 @@
+
+定数一覧
+将来的には設定ファイルで設定できるようにすべし？
+
+int g_iFPS = 20;	//sec per frame = 1/FPS
+
+double VIEW_ANGLE = 20.0 * M_PI / 180.0;
+static const double STEREO_EYELENGTH = 0.6;
+
+static const double DEFAULT_VIEW_NEAR = 0.1;
+static const double DEFAULT_VIEW_FAR = 5.0;
+
+#define DRAWEPS_WIDTH	200

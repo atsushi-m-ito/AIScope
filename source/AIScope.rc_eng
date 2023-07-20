@@ -1,0 +1,261 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include "windows.h"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+#include "resource.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 日本語 resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)
+#ifdef _WIN32
+LANGUAGE LANG_JAPANESE, SUBLANG_DEFAULT
+#pragma code_page(932)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_AISCOPE             ICON                    "AIScope.ICO"
+IDI_SMALL               ICON                    "SMALL.ICO"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDC_AISCOPE2 MENU 
+BEGIN
+    POPUP "File"
+    BEGIN
+        MENUITEM "Open",                        IDM_FILE_OPEN
+        MENUITEM "Exit",                        IDM_EXIT
+    END
+    POPUP "View"
+    BEGIN
+        POPUP "BG-color"
+        BEGIN
+            MENUITEM "black",                       IDM_BGCOLOR_BLACK, CHECKED
+            MENUITEM "white",                       IDM_BGCOLOR_WHITE
+        END
+        POPUP "border"
+        BEGIN
+            MENUITEM "visible",                     IDM_BOXFRAME_ON, CHECKED
+            MENUITEM "invisible",                   IDM_BOXFRAME_OFF
+        END
+        POPUP "projection"
+        BEGIN
+            MENUITEM "perspective",                 IDM_PROJECTION_PERSE
+            MENUITEM "orthogonal",                  IDM_PROJECTION_ORTHO
+        END
+    END
+    POPUP "Atom"
+    BEGIN
+        POPUP "geometry"
+        BEGIN
+            MENUITEM "sphere(small)",               IDM_SHAPE_SPHERE, CHECKED
+            MENUITEM "sphere(large)",               IDM_SHAPE_SPHERE_LARGE
+            MENUITEM "point sprite",                IDM_SHAPE_POINT
+            MENUITEM "no-particle",                 IDM_SHAPE_ATOM_NONE
+            MENUITEM SEPARATOR
+            MENUITEM "bond",                        IDM_SHAPE_PIPE, CHECKED
+            MENUITEM "エネルギー流束",                     IDM_SHAPE_ENERGYJ, INACTIVE
+            MENUITEM "no-bond",                     IDM_SHAPE_BOND_NONE
+            MENUITEM SEPARATOR
+            MENUITEM "現在の位置をキープ",                   IDM_SHAPE_KEEP
+        END
+        POPUP "color"
+        BEGIN
+            MENUITEM "原子番号",                        IDM_COLOR_ATOMIC, CHECKED
+            MENUITEM "結合数",                         IDM_COLOR_BONDNUM
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "re-bonding",                  IDM_RESET_BOND
+        MENUITEM "classify to mol.",            IDM_CLASSIFYMOL
+        MENUITEM "radial dist. func.",          IDM_RADIALDISTFUNC
+        MENUITEM "density",                     IDM_DENCITY
+        MENUITEM "coordination",                IDM_COORDINATE
+        MENUITEM "ボンド異方性",                      32842
+        MENUITEM "sp2法線",                       IDM_SP2NORMAL
+        MENUITEM "吸着水素リスト",                     IDM_HBOUNDC
+        MENUITEM SEPARATOR
+        MENUITEM "結合配位数(時系列)",                  IDM_TD_COORDINATE
+        MENUITEM "堆積深さ",                        IDM_TD_DEPTH
+        MENUITEM "水素蓄積量",                       IDM_ADSORBED_H_TD
+        MENUITEM "g(r)ピーク値",                    IDM_RADIALDISTFUNC_PEAK_TD
+        MENUITEM "Yield",                       IDM_YIELD_TD
+        MENUITEM "H/C比",                        IDM_HCRATIO_TD
+        MENUITEM "分子成長",                        IDM_MOLECULE_TD
+        MENUITEM "水素蓄積",                        IDM_RETENTION_TD
+        MENUITEM "堆積物",                         IDM_DEPOSITION_TD
+        MENUITEM "結合生存量",                       IDM_BONDSURVIVE_TD
+    END
+    MENUITEM "Trajectory",                  ID_32859
+    MENUITEM "Field",                       ID_FIELD
+    POPUP "Image"
+    BEGIN
+        MENUITEM "output BMP",                  IDM_SNAPSHOT_BMP
+        MENUITEM "output large BMP",            IDM_SNAPSHOT_LARGE_BMP
+        MENUITEM "output stereo BMP",           IDM_STEREO_BMP
+        MENUITEM "output EPS",                  IDM_SNAPSHOT_EPS
+    END
+    POPUP "Movie"
+    BEGIN
+        POPUP "frame skip"
+        BEGIN
+            MENUITEM "OFF",                         IDM_FRAMESKIP_OFF, CHECKED
+            MENUITEM "2 frame",                     IDM_FRAMESKIP_2
+            MENUITEM "10 frame",                    IDM_FRAMESKIP_10
+            MENUITEM "20 frame",                    IDM_FRAMESKIP_20
+            MENUITEM "100 frame",                   IDM_FRAMESKIP_100
+            MENUITEM "1000 frame",                  IDM_FRAMESKIP_1000
+        END
+        MENUITEM SEPARATOR
+        POPUP "play"
+        BEGIN
+            MENUITEM "all",                         IDM_CHKPOINT_PLAYALL
+            MENUITEM "現在位置から再生",                    IDM_CHKPOINT_PLAYAFTER, INACTIVE
+            MENUITEM "現在位置までを再生",                   IDM_CHKPOINT_PLAYBEFORE, INACTIVE
+        END
+        POPUP "output"
+        BEGIN
+            MENUITEM "output sequential BMP",       IDM_CHKPOINT_PLAYWITHBMP
+            MENUITEM "output sequential stereo BMP", IDM_CHKPOINT_PLAYWITHSTEREOBMP
+        END
+        MENUITEM SEPARATOR
+        POPUP "動画モード"
+        BEGIN
+            MENUITEM "単純再生",                        IDM_MOVIEMODE_SIMPLE, CHECKED
+            MENUITEM "チェックポイント使用",                  IDM_MOVIEMODE_CHKPOINT
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "チェックポイントの追加",                 IDM_CHKPOINT_INSERT, INACTIVE
+        MENUITEM "チェックポイントの保存",                 IDM_CHKPOINT_SAVE, INACTIVE
+        MENUITEM "チェックポイントの読み込み",               IDM_CHKPOINT_LOAD, INACTIVE
+    END
+    POPUP "Help"
+    BEGIN
+        MENUITEM "version info.",               IDM_ABOUT
+        MENUITEM SEPARATOR
+        MENUITEM "open setting.ini",            IDM_OPEN_SETTING
+        MENUITEM "reload setting.ini",          32843, INACTIVE
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDC_AISCOPE2 ACCELERATORS 
+BEGIN
+    "?",            IDM_ABOUT,              ASCII,  ALT
+    "/",            IDM_ABOUT,              ASCII,  ALT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 22, 17, 230, 76
+STYLE DS_SETFONT | DS_MODALFRAME | DS_3DLOOK | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_WINDOWEDGE
+CAPTION "version infomation"
+FONT 8, "System", 0, 0, 0x0
+BEGIN
+    ICON            IDI_AISCOPE,IDC_MYICON,14,9,20,20
+    LTEXT           "AIScope 3.1.1",IDC_STATIC,49,10,51,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2012 A.M.Ito All Rights Reserved.",IDC_STATIC,49,20,168,8
+    DEFPUSHBUTTON   "OK",IDOK,101,48,30,11,WS_GROUP
+END
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+2 TEXTINCLUDE 
+BEGIN
+    "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""windows.h""\r\n"
+    "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""resource.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 75
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDS_APP_TITLE           "AIScope3"
+    IDC_AISCOPE2            "AISCOPE3"
+END
+
+#endif    // 日本語 resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
