@@ -1,0 +1,8 @@
+/x64
+/WapForStore
+/note
+/.vs
+/Release
+
+*.user
+*.aps
