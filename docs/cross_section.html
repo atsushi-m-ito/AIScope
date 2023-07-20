@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="style.css" >
+	<title>AIScope</title>
+</head>
+<body>
+
+
+<header>
+<h1>Operation of Cross-section</h1>
+
+<p>AIScopeのcubeファイルの可視化における断面の設定と操作に関して記します。</p>
+
+</header>
+
+
+<a href="index.html">AIScopeのtopへ戻る</a>
+
+<section>
+<article>
+
+<h2>概要</h2>
+
+<p>
+AIScopeではcubeファイルの可視化において断面を3つまで設定できます。
+断面をセットすることにより、任意の面で物質を切り取って内部の様子を見ることが出来ます。
+</p>
+
+
+<h2>断面の有効化</h2>
+<p>断面を有効にするには、cubeファイルを可視化した状態で、次の操作を行います。</p>
+
+<ul>
+<li>
+1つ目の断面を有効にするにはキーボードの1キーを押してください。
+2つ目、3つ目の断面を有効にするには、2キー、3キーをを押してください。
+</li>
+<li>
+断面を移動するには、目的の断面の番号に対応したキー(1キー～3キー)を押したまま、マウスホーイルをスクロールしてください。断面垂直方向に移動します。
+</li>
+<li>
+断面を回転するには、目的の断面の番号に対応したキー(1キー～3キー)を押したまま、回転させたい方向に画面をマウスドラッグしてください。
+</li>
+<li>
+断面を消したい(無効化したい)ときには、Shiftキーを押しながら目的の断面の番号に対応したキー(1キー～3キー)を押してください。
+</li>
+</ul>
+
+
+<h2>複数の断面利用時の切り取り方の変更</h2>
+<p>
+また、断面を複数使用する場合には、切り口に対して、どのように物体を残すのかで、見え方が変わります。
+断面の枚数が最大3つまでであることから、物体の切り取り方も4つのモードがあります。
+「メニュー」→「field」→「Cross section mode」で設定して、目的の可視化表現を探ってみてください。
+</p>
+
+
+<h2>設定ファイル</h2>
+<p>cubeファイルの可視化で色付けが有効な値の範囲や、半透明度の調整をするには、setting.iniにおいて[VISUAL]の項目の次の値を調整してください。
+設定値を反映させるにはアプリを再起動してください。</p>
+
+
+<h2>[WINDOW] 項目</h2>
+
+<table>
+<thead>
+<tr><th>変数名</th><th>設定フォーマット</th><th>説明</th></tr>
+</thead>
+<tr><td>FieldRangeMin</td><td>浮動小数点</td><td>密度場の値がFieldRangeMin以上のとき可視化します。FieldRangeMinは下限であり、密度値がこの値以下の場所では透明になります。</td></tr>
+<tr><td>FieldRangeMax</td><td>浮動小数点</td><td>FieldRangeMaxは上限(最大値)であり、密度値がこの値以上であっても、最大値と同じものとして描かれます。</td></tr>
+<tr><td>FieldAlphaMin</td><td>浮動小数点</td><td>密度場の値がFieldAlphaMinからFieldAlphaMaxにかけて可視化の不透明度が0から1になるように設定します。密度場の値がFieldAlphaMin以下のときに不透明度が0(完全透明)になります。FieldAlphaMinの値をFieldRangeMinよりも小さく設定することで、可視化範囲の下限(FieldRangeMin)の場所でも明瞭に映る様になります。</td></tr>
+<tr><td>FieldAlphaMax</td><td>浮動小数点</td><td>密度場の値がFieldAlphaMax以下のときに不透明度が1(完全不透明)になります。FieldAlphaMaxの値をFieldRangeMaxよりも小さく設定すると、全体的に不透明度が高くなります。一方でFieldRangeMaxよりも大きく設定すると、全体的に透けて見えるようになります。</td></tr>
+</table>
+
+</article>
+</section>
+
+<footer>
+<a href="https://github.com/atsushi-m-ito/">Atsushi M. Ito's github repository</a>
+</footer>
+
+
+</body>
+</html>

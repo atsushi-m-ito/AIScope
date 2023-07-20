@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="style.css" >
+	<title>AIScope</title>
+</head>
+<body>
+
+
+<header>
+<h1>AIScope<br/>(Atom Interactive Scope)</h1>
+
+<p>分子動力学シミュレーションなどの粒子シミュレーションの計算結果を可視化するソフトウェアです。
+	主に粒子データの可視化が可能ですが、電子密度など一部の場のデータも可視化可能です。
+	暫定的な機能ですが3Dプリンタ向けのSTL形式のファイルも出力することができます。
+</p>
+
+</header>
+
+<section>
+<article>
+
+<h2>マニュアル</h2>
+
+<table>
+<thead>
+<tr><th>マニュアル一覧</th></tr>
+</thead>
+<tr><td><a href="setting.html">設定パラメータ一覧</a></td></tr>
+<tr><td><a href="cross_section.html">断面の操作方法</a></td></tr>
+</table>
+
+</article>
+</section>
+
+
+<section>
+<article>
+
+
+<h2>Sources</h2>
+
+<a href="https://github.com/atsushi-m-ito/AIScope/">Github repository</a>
+
+
+<h2>Sample data</h2>
+
+<table>
+<thead>
+<tr><th>type</th><th>extension</th><th>format</th><th>link</th></tr>
+</thead>
+<tr><td>particle</td><td>md3</td><td>text</td><td><a href="samples/W127He14.md3">download</a></td></tr>
+<tr><td>electron density</td><td>cube</td><td>test</td><td><a href="samples/C60.tden.cube">download</a></td></tr>
+</table>
+
+
+<h2>Version History</h2>
+
+<table>
+<thead>
+<tr><th>version</th><th>upload date</th><th>link</th></tr>
+</thead>
+
+<tr><td>3.8.5</td><td>2023.5.12</td><td></td></tr>
+<tr><td colspan="3"><ul>
+<li>cubeファイルの読み込みを高速化。</li>
+</ul></td></tr>
+
+<tr><td>3.8.4</td><td>2023.5.2</td><td></td></tr>
+<tr><td colspan="3"><ul>
+<li>cubeファイルの連番読み込み時にデータが更新されないことがあるバグを修正。</li>
+</ul></td></tr>
+
+
+<tr><td>3.8.3</td><td>2023.3.27</td><td></td></tr>
+<tr><td colspan="3"><ul>
+<li>末尾が数字のcubeファイルを連続したデータとして読み込むようにしました。</li>
+<li>末尾の数字は連番でなくてもよい。例えば0,50,100など不連続な数字でも良い。ただし昇順に読み込む。開いたファイルより若い番号は読み込まない。</li>
+</ul></td></tr>
+
+
+<tr><td>3.8.2</td><td>2023.3.27</td><td></td></tr>
+<tr><td colspan="3"><ul>
+<li>md3, fa2等の原子データについても3つまで断面（切り口）を設定できるようにしました。</li>
+<li>cubeファイルにおいて原子のデータも同時に読み込めるようになりました。</li>
+<li>Fieldデータ(cubeファイル等)とポリゴンデータ(原子のデータ)を重ねて表示できるようにしました。</li>
+</ul></td></tr>
+
+<tr><td>3.8.0</td><td>2022.9.18</td><td></td></tr>
+<tr><td colspan="3"><ul>
+<li>cubeファイルのレンダリング方法を変更しました。</li>
+<li>cubeファイルのレンダリングにおいて、3つまで断面（切り口）を設定できるようにしました。</li>
+</ul></td></tr>
+
+<tr><td>3.7.5</td><td>2021.6.8</td><td></td></tr>
+<tr><td colspan="3"><ul>
+<li>cubeファイルのレンダリングを調整しました。</li>
+<li>cubeファイルのレンダリングに対してBMP画像の出力に対応しました。</li>
+</ul></td></tr>
+
+<tr><td>3.7.4</td><td>2021.6.3</td><td></td></tr>
+<tr><td colspan="3"><ul>
+<li>DirectX11モードでもcubeファイルのレンダリングが可能になりました。</li>
+</ul></td></tr>
+
+<tr><td>3.7.3</td><td>2021.4.8</td><td></td></tr>
+<tr><td colspan="3"><ul>
+<li>krbファイルの読み込みを改善</li>
+</ul></td></tr>
+
+<tr><td>3.7.2</td><td>2021.2.10</td><td></td></tr>
+<tr><td colspan="3"><ul>
+<li>ver3.7.0以降krbおよびtrajファイルが開けなくなっていた問題を修正。</li>
+<li>krbおよびtrajファイルにおいて軌跡の線分の太さをTrajectoryWidthを参照するように変更。(これ以前はAtomRadiusの1/4としていた。)</li>
+<li>Intel UHD Graphicsでドラッグ中に表示が暗くなるbugを修正するためデフォルトのDXGI_FORMATをR8G8B8A8_UNORMに戻した。</li>
+</ul></td></tr>
+
+<tr><td>3.7.0</td><td>2020.12.08</td><td></td></tr>
+<tr><td colspan="3"><ul>
+<li>粒子数が大きい場合に別の表示設定が適用できるようになりました。setting.iniの[LARGE]項目で設定。</li>
+</ul></td></tr>
+
+<tr><td>3.6.11</td><td>2019.02.06</td><td></td></tr>
+<tr><td colspan="3"><ul>
+<li>Windows10,1809(October 2018 Update)からの仕様変更に伴いアプリ起動時に描画されない問題を修正</li>
+<li>テスト環境が用意できない為、本versionよりwindows7をサポート対象から外しました</li>
+</ul></td></tr>
+
+<tr><td>3.6.10</td><td>2018.04.24</td><td></td></tr>
+<tr><td colspan="3"><ul>
+<li>PMD,VRMLが表示されないバグ問題を修正</li>
+<li>粒子をgrid情報に直してからSTL出力する機能を追加</li>
+</ul></td></tr>
+
+<tr><td>3.6.8</td><td>2018.02.28</td><td></td></tr>
+<tr><td>3.6.6(rev1)</td><td>2018.01.22</td><td></td></tr>
+<tr><td>3.6.4</td><td>2017.12.23</td><td></td></tr>
+<tr><td>3.6.3</td><td>2017.12.08</td><td></td></tr>
+<tr><td>3.6.2</td><td>2017.12.05</td><td></td></tr>
+<tr><td>3.5.7</td><td>2016.06.14</td><td></td></tr>
+<tr><td>3.5.5</td><td>2016.05.25</td><td></td></tr>
+<tr><td>3.5.0</td><td>2016.03.02</td><td></td></tr>
+<tr><td>3.4.0</td><td>2015.08.31</td><td></td></tr>
+<tr><td>3.3.12</td><td>2015.03.16</td><td></td></tr>
+<tr><td>3.3.11</td><td>2015.03.16</td><td></td></tr>
+<tr><td>3.3.10</td><td>2015.03.16</td><td></td></tr>
+<tr><td>3.3.8</td><td>2015.01.22</td><td></td></tr>
+<tr><td>3.3.7</td><td>2015.01.22</td><td></td></tr>
+<tr><td>3.3.6</td><td>2014.11.17</td><td></td></tr>
+<tr><td>3.3.5</td><td>2014.11.06</td><td></td></tr>
+<tr><td>3.3.2</td><td>2014.07.08</td><td></td></tr>
+<tr><td>3.3.0</td><td>2014.06.20</td><td></td></tr>
+<tr><td>3.2.13</td><td>2014.05.14</td><td></td></tr>
+<tr><td>3.2.12</td><td>2014.04.25</td><td></td></tr>
+<tr><td>3.2.11</td><td>2014.04.17</td><td></td></tr>
+<tr><td>3.2.10</td><td>2014.03.18</td><td></td></tr>
+<tr><td>3.2.7</td><td>2014.02.28</td><td></td></tr>
+<tr><td>3.2.6</td><td>2014.02.25</td><td></td></tr>
+<tr><td>3.2.3</td><td>2013.11.28</td><td></td></tr>
+<tr><td>3.2.1</td><td>2013.11.12</td><td></td></tr>
+<tr><td>3.1.9</td><td>2013.07.16</td><td></td></tr>
+<tr><td>3.1.8</td><td>2013.06.15</td><td></td></tr>
+<tr><td>3.1.7</td><td>2013.05.22</td><td></td></tr>
+<tr><td>3.1.6</td><td>2013.04.12</td><td></td></tr>
+<tr><td>3.0.a9</td><td>2012.05.28</td><td></td></tr>
+</table>
+
+
+<h2>ランタイム</h2>
+環境によっては動作にVisual Studio 2022(C++)用ランタイムが必要です。
+(一応、ランタイムが必要無い様にコンパイルしているつもりですが。。)
+その場合は適当に検索して再配布可能パッケージなるものをインストールしてみてください。
+
+
+
+<h2>LICENSE</h2>
+	<p>Copyright (c) 2012-2023 Atsushi M. Ito</p>
+	
+	<p>This project is licensed under the MIT License, see the LICENSE.txt file for details.</p>
+	
+<h2>Privacy Policy</h2>
+<ul>
+	<li>This application (AIScope) and developer do not collect any personal information or privacy-related information about user.</li>
+	<li>The application and developer do not collect information of keyboard typing by user.</li>
+	<li>The application and developer do not collect the information of files opened by the application.</li>
+</ul>
+</article>
+</section>
+
+<footer>
+<a href="https://github.com/atsushi-m-ito/">Atsushi M. Ito's github repository</a>
+</footer>
+
+
+</body>
+</html>

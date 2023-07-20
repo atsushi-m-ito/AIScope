@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="style.css" >
+	<title>AIScope</title>
+</head>
+<body>
+
+
+<header>
+<h1>Setting parameters of AIScope (Atom Information Scope)</h1>
+
+<p>AIScopeの設定パラメータの一覧です。ソフトに付属のsetting.iniを書き変えてソフトを再起動してください。
+</p>
+
+</header>
+
+
+<a href="index.html">AIScopeのtopへ戻る</a>
+
+<section>
+<article>
+
+<h2>[BASIC] 項目</h2>
+
+<table>
+<thead>
+<tr><th>変数名</th><th>設定フォーマット</th><th>説明</th></tr>
+</thead>
+
+<tr><td>Periodic</td><td>整数(0 or 1)</td><td>周期境界条件を有効(1)もしくは無効(0)にします。</td></tr>
+</table>
+
+<h2>[GPUDriver] 項目</h2>
+
+<table>
+<thead>
+<tr><th>変数名</th><th>設定フォーマット</th><th>説明</th></tr>
+</thead>
+<tr><td>DirectX11</td><td>整数(0 or 1)</td><td>描画するGPUドライバを選びます。0:OpenGL1.5で描画します。1:DirectX11で描画します。3D visionを用いる際はDirectX11モードに設定してください。Version 3.5よりDirectX11モードが正式なドライバーモードです。OpenGLモードはcubeファイル以外は非対応とします。</td></tr>
+<tr><td>Vsync</td><td>整数(0, 1, 2)</td><td>画面との垂直同期モードを選びます。0:垂直同期せずに常に再描画を繰り返します。ベンチマーク用です。1:垂直同期します。2:必要な時だけ再描画をします(エコモード)。通常は2で運用してください。ただし、3D visionを用いる際は1(垂直同期)に設定する必要があります。</td></tr>
+<tr><td>VRAM</td><td>整数[MByte]</td><td>GPUに一度に転送するVRAMサイズの上限を指定します。MByte単位で指定してください。</td></tr>
+</table>
+
+
+<h2>[WINDOW] 項目</h2>
+
+<table>
+<thead>
+<tr><th>変数名</th><th>設定フォーマット</th><th>説明</th></tr>
+</thead>
+<tr><td>Width</td><td>整数</td><td>起動時のウィンドウサイズを指定します。正確には描画領域のサイズを指定していますので、実際のウィンドウサイズはフレームの飾りの分だけ大きくなります。</td></tr>
+<tr><td>Height</td><td>整数</td><td>起動時のウィンドウサイズを指定します。正確には描画領域のサイズを指定していますので、実際のウィンドウサイズはフレームの飾りの分だけ大きくなります。</td></tr>
+<tr><td>Multiview</td><td>整数(0 or 1)</td><td>複数のファイルを開いたときの表示方法を指定します。0:重ねて表示。1:並べて表示。※DirectX11モードでは複数のファイル表示に未対応です。</td></tr>
+</table>
+
+
+<h2>[VISUAL] 項目</h2>
+
+<table>
+<thead>
+<tr><th>変数名</th><th>設定フォーマット</th><th>説明</th></tr>
+</thead>
+<tr><td>Atom</td><td>整数</td><td>原子の表示表法を設定します。0:表示しない, 1:ポリゴンで表示, 3:ポイントスプライトで表示</td></tr>
+<tr><td>AtomPoly</td><td>整数(2以上)</td><td>原子をポリゴンで表示する際の滑らかさを設定します。2以上の値としてください。</td></tr>
+<tr><td>AtomColor</td><td>整数(0,1)</td><td>原子の色を設定します。0:元素の種類で色分けします。1:結合数で色分けします。</td></tr>
+<tr><td>AtomRadius</td><td>実数</td><td>原子をポリゴンで表示する際の半径を設定します。</td></tr>
+<tr><td>Bond</td><td>整数</td><td>ボンドの表示表法を設定します。0:表示しない, 1:ポリゴンで表示</td></tr>
+<tr><td>BondPoly</td><td>整数(3以上)</td><td>ボンドをポリゴンで表示する際の滑らかさを設定します。3以上の値としてください。</td></tr>
+<tr><td>BondCutoff</td><td>実数</td><td>カットオフ長を指定します。原子間距離がカットオフ長よりも短い場合には、原子間にボンドが存在するものとみなします。</td></tr>
+<tr><td>Trajectory</td><td>整数</td><td>トラジェクトリーの表示表法を設定します。0:表示しない, 1:表示する</td></tr>
+<tr><td>TrajectoryColor</td><td>実数,実数,実数</td><td>トラジェクトリーの表示色を設定します。RGBの3色をカンマ区切りで、0.0から1.0の範囲で指定します。</td></tr>
+<tr><td>TrajectoryWidth</td><td>実数</td><td>トラジェクトリーの太さを設定します。</td></tr>
+<tr><td>TrajectoryZReverse</td><td>整数(0,1)</td><td>トラジェクトリーの表示に関してZ軸方向反転するかどうかを指定します。0:反転しない, 1:反転する(default)</td></tr>
+<tr><td>Box=1</td><td>整数</td><td>シミュレーションボックスの境界の表示表法を設定します。0:表示しない, 1:表示する</td></tr>
+<tr><td>BGColor</td><td>実数,実数,実数</td><td>背景色を設定します。RGBの3色をカンマ区切りで、0.0から1.0の範囲で指定します。</td></tr>
+<tr><td>Projection</td><td>整数</td><td>射影の方法を設定します。0:透視射影, 1:正射影</td></tr>
+<tr><td>FieldSplit</td><td>実数</td><td>フィールドデータの表示の際の滑らかさを指定します。1.0が標準です。大きな値を設定すると滑らかになります。VRAMが少ないマシンでは小さな値を設定してください。</td></tr>
+</table>
+
+
+<h2>[LARGE] 項目</h2>
+最初に開いたファイルの粒子数が設定値Threshold以上の場合には、[VISUAL]項目よりもこちらの表示設定が適用される。
+<table>
+<thead>
+<tr><th>変数名</th><th>設定フォーマット</th><th>説明</th></tr>
+</thead>
+<tr><td>Threshold</td><td>整数</td><td>原子の表示表法を切り替える閾値を設定します。</td></tr>
+<tr><td>Atom</td><td>整数</td><td>原子の表示表法を設定します。0:表示しない, 1:ポリゴンで表示, 3:ポイントスプライトで表示</td></tr>
+<tr><td>AtomPoly</td><td>整数(2以上)</td><td>原子をポリゴンで表示する際の滑らかさを設定します。2以上の値としてください。</td></tr>
+<tr><td>AtomColor</td><td>整数(0,1)</td><td>原子の色を設定します。0:元素の種類で色分けします。1:結合数で色分けします。</td></tr>
+<tr><td>AtomRadius</td><td>実数</td><td>原子をポリゴンで表示する際の半径を設定します。</td></tr>
+<tr><td>Bond</td><td>整数</td><td>ボンドの表示表法を設定します。0:表示しない, 1:ポリゴンで表示</td></tr>
+<tr><td>BondPoly</td><td>整数(3以上)</td><td>ボンドをポリゴンで表示する際の滑らかさを設定します。3以上の値としてください。</td></tr>
+<tr><td>Box=1</td><td>整数</td><td>シミュレーションボックスの境界の表示表法を設定します。0:表示しない, 1:表示する</td></tr>
+<tr><td>BGColor</td><td>実数,実数,実数</td><td>背景色を設定します。RGBの3色をカンマ区切りで、0.0から1.0の範囲で指定します。</td></tr>
+</table>
+
+
+<h2>[OUTPUT] 項目</h2>
+
+<table>
+<thead>
+<tr><th>変数名</th><th>設定フォーマット</th><th>説明</th></tr>
+</thead>
+<tr><td>LargeBmpMagnify</td><td>整数(1以上)</td><td>ラージBMP出力時の画像の倍率を指定します。</td></tr>
+</table>
+
+<h2>[ATOM] 項目</h2>
+
+<table>
+<thead>
+<tr><th>変数名</th><th>設定フォーマット</th><th>説明</th></tr>
+</thead>
+<tr><td>Color</td><td>文字列,実数,実数,実数,実数</td><td>元素ごとの色を指定します。カンマ区切りで元素記号(文字列),赤色(実数),青色(実数),緑色(実数),透過色(実数)を指定してください。透過色は0.0が設定され場合には原子を表示せず、それ以外の値の時には表示します。現段階では半透明表示は行いません。</td></tr>
+<tr><td>ColorNBond</td><td>整数,実数,実数,実数,実数</td><td>結合数ごとの色を指定します。カンマ区切りで結合数(整数,0以上),赤色(実数),青色(実数),緑色(実数),透過色(実数)を指定してください。色の設定はColorの説明と同様です。</td></tr>
+</table>
+
+</article>
+</section>
+
+<footer>
+<a href="https://github.com/atsushi-m-ito/">Atsushi M. Ito's github repository</a>
+</footer>
+
+
+</body>
+</html>
