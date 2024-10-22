@@ -56,12 +56,12 @@ public:
 
     void Draw(const mat33d& axis, const vec3d& org, int size, unsigned int color) {
 
-        if (size != 12) {
+        if ((size != 12) && (size != 16))  {
             return;
         }
 
-        const int vbo_v_count = 8;
-        const int vbo_i_count = 12 * 2;
+        const int vbo_v_count = (size == 16) ? 12 : 8;
+        const int vbo_i_count = size * 2;
         if (m_vbo_vertex == NULL) {
             m_vbo_vertex = new VERTEX_F3UI1[vbo_v_count];
             m_vbo_indexes = new int[vbo_i_count];
@@ -83,7 +83,12 @@ public:
         m_vbo_vertex[6].position = m_vbo_vertex[2].position + axis_f.c;
         m_vbo_vertex[7].position = m_vbo_vertex[3].position + axis_f.c;
 
-
+        if (size == 16) {
+            m_vbo_vertex[8].position = m_vbo_vertex[0].position + axis_f.c / 2.0f;
+            m_vbo_vertex[9].position = m_vbo_vertex[1].position + axis_f.c / 2.0f;
+            m_vbo_vertex[10].position = m_vbo_vertex[2].position + axis_f.c / 2.0f;
+            m_vbo_vertex[11].position = m_vbo_vertex[3].position + axis_f.c / 2.0f;
+        }
 
         m_vbo_indexes[0] = 0;   m_vbo_indexes[1] = 1;
         m_vbo_indexes[2] = 1;   m_vbo_indexes[3] = 3;
@@ -99,6 +104,13 @@ public:
         m_vbo_indexes[18] = 1;   m_vbo_indexes[19] = 5;
         m_vbo_indexes[20] = 2;   m_vbo_indexes[21] = 6;
         m_vbo_indexes[22] = 3;   m_vbo_indexes[23] = 7;
+
+        if (size == 16) {
+            m_vbo_indexes[24] = 8;   m_vbo_indexes[25] = 9;
+            m_vbo_indexes[26] = 9;   m_vbo_indexes[27] = 11;
+            m_vbo_indexes[28] = 11;   m_vbo_indexes[29] = 10;
+            m_vbo_indexes[30] = 10;   m_vbo_indexes[31] = 8;
+        }
 
         for (int i = 0; i < vbo_v_count; i++) {
             m_vbo_vertex[i].color = color;

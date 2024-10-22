@@ -212,6 +212,7 @@
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <DelayLoadDLLs>d3d11.dll</DelayLoadDLLs>
+      <AdditionalDependencies>comctl32.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -386,6 +387,7 @@
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
+      <AdditionalDependencies>comctl32.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -946,6 +948,12 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="source\AIScope.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="setting.ini">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+      <FileType>Document</FileType>
+    </Text>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

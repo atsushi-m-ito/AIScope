@@ -29,6 +29,8 @@
 #include <mmsystem.h>
 #pragma comment( lib, "winmm.lib" )
 
+#include <commctrl.h>
+
 #include "resource.h"
 #include "quotationtok.h"
 
@@ -66,7 +68,7 @@
 #define MAX_LOADSTRING 100
 
 HINSTANCE g_hInst;					// 現在のインスタンス
-TCHAR szTitle[] = _T("AIScope 3.8.5");
+TCHAR szTitle[] = _T("AIScope 3.8.11");
 TCHAR szWindowClass[] = _T("AIScopeWindow");			// タイトル バー テキスト
 
 double g_FPS = 0.0;
@@ -150,14 +152,6 @@ namespace {
 		return aiproperty.SetCrossSection(id, s_cross_section_effective[id], s_cross_sections[id].position, s_cross_sections[id].normal, s_cross_section_and_or[id]);
 	}
 
-	void ResetCrossSection(const vec3d& box_center) {
-		s_cross_sections[0].position = box_center;
-		s_cross_sections[1].position = box_center;
-		s_cross_sections[2].position = box_center;
-		SetCrossSection(0);
-		SetCrossSection(1);
-		SetCrossSection(2);
-	}
 
 	int CameraOrCross() {
 		if (GetKeyState('1') < 0) { //ユーザー定義断面の操作//
@@ -182,6 +176,15 @@ namespace {
 			+ ((GetKeyState('3') < 0) ? 4 : 0);
 	}
 	*/
+}
+
+void ResetCrossSection(const vec3d& box_center) {
+	s_cross_sections[0].position = box_center;
+	s_cross_sections[1].position = box_center;
+	s_cross_sections[2].position = box_center;
+	SetCrossSection(0);
+	SetCrossSection(1);
+	SetCrossSection(2);
 }
 
 void SetCrossSectionMode(int and_or1, int and_or2, int and_or3) {
@@ -513,6 +516,35 @@ HWND InitWindow( HINSTANCE hInstance, int nCmdShow ){
 	if( hWnd ){
 	    ShowWindow( hWnd, nCmdShow );//win10,1809よりWM_PAINTが最初のメッセージループ前に実行されてしまうようになった.
 	//	UpdateWindow( hWnd );先にこれを呼ぶと、WM_PAINTが最初のメッセージループ前に実行されてしまう.
+
+
+			//ファイルオープン
+		TCHAR* buf = _tcsdup(GetCommandLine());
+		quotationtok(buf, _T(" \t\r\n;"));
+		TCHAR* filename = quotationtok(NULL, _T(" \t\n\r"));	//ファイル名の取得""で囲まれた場合の対策.
+		if (filename) {
+			g_renderingLock = true;
+
+			g_aiscope.OpenFile(filename, hWnd);
+
+			if (g_aiscope.ExistData()) {
+				double focus_distance;
+				vec3d target_position;
+				g_aiscope.GetFocusInfomation(&focus_distance, &target_position);
+				g_uicamera.ResetFocus(focus_distance, target_position);
+				ResetCrossSection(target_position);
+
+				ApplySetting(&aiproperty, g_aiscope.GetNumAtoms());
+			}
+
+			ResetCurrentFileMenu(hWnd, g_aiscope.GetFileType());
+			ResetWindowText(hWnd);
+
+			g_renderingLock = false;
+			InvalidateRect(hWnd, NULL, FALSE);
+
+		}
+		delete[] buf;
 	}
 	
 	return hWnd;
@@ -546,6 +578,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			aiproperty.RegisterNotifyReciever(&notify_distributer);
 			ApplySetting(&aiproperty);//setting.iniの値を反映させる(タイミングとしてここで行うのは暫定)//
 
+			//コモンコントロールの初期化  
+			INITCOMMONCONTROLSEX ic{ sizeof(INITCOMMONCONTROLSEX), ICC_PROGRESS_CLASS };
+			InitCommonControlsEx(&ic);
+
+#if 0
 			//ファイルオープン
 			TCHAR* buf = _tcsdup(GetCommandLine());
 			quotationtok(buf, _T(" \t\r\n;"));
@@ -553,7 +590,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			if(filename){
 				g_renderingLock = true;
 
-				g_aiscope.OpenFile(filename);
+				g_aiscope.OpenFile(filename, hWnd);
 
 				if (g_aiscope.ExistData()){
 					double focus_distance;
@@ -572,6 +609,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 			}
 			delete [] buf;
+#endif
 
 			//ファイルドロップの許可.
 			DragAcceptFiles(hWnd, TRUE);		
@@ -1060,7 +1098,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 DragQueryFile(hDrop, i, szFilePath, sizeof(szFilePath)/2);
 
 
-				res |= g_aiscope.OpenFile(szFilePath);
+				res |= g_aiscope.OpenFile(szFilePath, hWnd);
 
 				if (g_aiscope.ExistData()){
 					double focus_distance;
@@ -1100,7 +1138,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 					g_filetime = tm;
 				
 					g_renderingLock = true;
-					int res = g_aiscope.ReloadFile();
+					int res = g_aiscope.ReloadFile(hWnd);
 					g_renderingLock = false;
 					if(res){
 						InvalidateRect(hWnd, NULL, FALSE);

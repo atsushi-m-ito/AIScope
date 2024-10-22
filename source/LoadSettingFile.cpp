@@ -287,7 +287,10 @@ int GetPrivateProfileFloatArray(LPCTSTR lpAppName, LPCTSTR lpKeyName, LPCTSTR lp
 	return (int)(p - farray);
 }
 
-
+/*
+* LoadSettingFile()で読み込んだ設定をaiproperty, which is the property linked with AIScope class, に適用する関数
+* 将来的にLoadSettingFileと合わせて閉じたクラスにすべき
+*/
 void ApplySetting(AIScopeProperty* aiproperty, int num_atoms){
 
 	aiproperty->ChangeProperty(AISCUPE_KEY_PROJECTION, s_visual_projection);

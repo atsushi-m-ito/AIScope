@@ -223,7 +223,7 @@ static void Transpose(F* matrix44, const D* source44){
 
 }
 
-void RenderingOneDX11_2(LawData& data, const float* view_matrix_t, const float* projection_matrix, const double focus_distance, const RenderingProperty& rendering_property, DX11_CORE* dx11_core) {
+void RenderingOneDX11_2(LawData& data, const float* view_matrix_t, const float* projection_matrix, const double focus_distance, const int screen_w, const int screen_h, const RenderingProperty& rendering_property, DX11_CORE* dx11_core) {
 	//各ファイルごとのレンダリング処理//
 
 	//visual setting//
@@ -252,6 +252,35 @@ void RenderingOneDX11_2(LawData& data, const float* view_matrix_t, const float* 
 	m_boxRendererDX11->SetViewAndProjectionMatrix(view_matrix_t, projection_matrix);
 	state_manager_dx->StoreState();
 
+
+
+	auto CrossSectionChecker = [&rendering_property](vec3f r, uint32_t color) {
+		int res = -1;
+		for (int i = 0; i < 3; ++i) {
+			if (rendering_property.is_corss_section_effect[i]) {
+				const vec3d dr{
+					r.x - rendering_property.corss_sections[i].point.x,
+					r.y - rendering_property.corss_sections[i].point.y,
+					r.z - rendering_property.corss_sections[i].point.z };
+				const double inner = dr.x * rendering_property.corss_sections[i].normal.x
+					+ dr.y * rendering_property.corss_sections[i].normal.y
+					+ dr.z * rendering_property.corss_sections[i].normal.z;
+
+				//int res1 = (inner < 0.0) ? 1 : 0;
+				int res1 = (inner < rendering_property.atom_radius) ? 1 : 0;
+
+				if (res == -1) {
+					res = res1;
+				} else if (rendering_property.corss_section_mode_and_or[i]) {
+					res |= res1;
+				} else {
+					res &= res1;
+				}
+			}
+		}
+		return (res > 0) ? true : false;
+		};
+
 	switch (data.type) {
 	case FILETYPE_ATOM:
 		{
@@ -278,31 +307,6 @@ void RenderingOneDX11_2(LawData& data, const float* view_matrix_t, const float* 
 				
 				if (rendering_property.atom_draw == VISUAL_ATOM_SPHERE) {
 
-					auto CrossSectionChecker = [&rendering_property](vec3f r, uint32_t color) {
-						int res = -1;
-						for (int i = 0; i < 3; ++i) {
-							if (rendering_property.is_corss_section_effect[i]) {
-								const vec3d dr{
-									r.x - rendering_property.corss_sections[i].point.x,
-									r.y - rendering_property.corss_sections[i].point.y,
-									r.z - rendering_property.corss_sections[i].point.z };
-								const double inner = dr.x * rendering_property.corss_sections[i].normal.x
-									+ dr.y * rendering_property.corss_sections[i].normal.y
-									+ dr.z * rendering_property.corss_sections[i].normal.z;
-
-								int res1 = (inner < 0.0) ? 1 : 0;
-
-								if (res == -1) {
-									res = res1;
-								} else if (rendering_property.corss_section_mode_and_or[i]) {
-									res |= res1;
-								} else {
-									res &= res1;
-								}
-							}
-						}
-						return (res > 0) ? true : false;
-					};
 				
 
 					//レンダリング処理///////////////////////////////////////////
@@ -428,7 +432,7 @@ void RenderingOneDX11_2(LawData& data, const float* view_matrix_t, const float* 
 			range.range_max = rendering_property.field_range_max;
 			range.alpha_min = rendering_property.field_alpha_min;
 			range.alpha_max = rendering_property.field_alpha_max;
-			m_rayCastingRenderer_depth->DrawField(field, range, view_matrix_t, m_depth_view);
+			m_rayCastingRenderer_depth->DrawField(field, range, view_matrix_t, projection_matrix, screen_w, screen_h, m_depth_view);
 
 			if (rendering_property.box_draw) {
 				m_boxRendererDX11->Draw(field->boxaxis, field->boxorg, 12, box_color);
@@ -457,8 +461,11 @@ void RenderingOneDX11_2(LawData& data, const float* view_matrix_t, const float* 
 			m_karabaRendererDX11->SetViewAndProjectionMatrix(view_matrix_t, projection_matrix);
 			KRB_INFO* dat = data.GetDataPointerKRB();
 
-			m_karabaRendererDX11->Draw(dat, trajectory_color, vis);
-
+			if (IsCrossSectForAtom(rendering_property)) {
+				m_karabaRendererDX11->DrawFunc(dat, trajectory_color, vis, CrossSectionChecker);
+			} else {
+				m_karabaRendererDX11->Draw(dat, trajectory_color, vis);
+			}
 
 			if (rendering_property.box_draw) {
 				mat33d axis;
@@ -700,6 +707,7 @@ void RenderingCoreDX11(std::vector<LawData>& data_list,  int screen_w, int scree
 
 	const int num_files =  data_list.size();
 	if ((rendering_property.multiview_mode == 0) || (num_files == 1)) {
+		//粒子とfieldを重ねたrendering
 		// Setup the viewport
 		D3D11_VIEWPORT vp;
 		vp.Width = (FLOAT)range_w;
@@ -725,12 +733,12 @@ void RenderingCoreDX11(std::vector<LawData>& data_list,  int screen_w, int scree
 			if(s_readable_depth==nullptr) s_readable_depth = new ReadableDepth(dx11_core);
 			m_depth_view = s_readable_depth->Begin();
 
-			{
+			{//先に粒子をrendering
 				RenderingProperty rendering_property2{ rendering_property };
 				rendering_property2.box_draw = 0;
 				for (auto& a : data_list) {
 					if (a.type == FILETYPE_FIELD) continue;
-					RenderingOneDX11_2(a, view_matrix_t, (float*)&projection_matrix, focus_distance, rendering_property2, dx11_core);
+					RenderingOneDX11_2(a, view_matrix_t, (float*)&projection_matrix, focus_distance, range_w, range_h, rendering_property2, dx11_core);
 				}
 			}
 			
@@ -738,11 +746,12 @@ void RenderingCoreDX11(std::vector<LawData>& data_list,  int screen_w, int scree
 			
 			dx11_core->pD3DDeviceContext->ClearDepthStencilView(dx11_core->pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 
+			//続いてfieldをrendering//
 			for (auto& a : data_list) {
 				if (a.type == FILETYPE_FIELD) {
 					RenderingProperty rendering_property2{ rendering_property };
-					rendering_property2.field_render_mode = 10;
-					RenderingOneDX11_2(a, view_matrix_t, (float*)&projection_matrix, focus_distance, rendering_property2, dx11_core);
+					rendering_property2.field_render_mode = 10;//Fieldと粒子を重ねたレンダリング//
+					RenderingOneDX11_2(a, view_matrix_t, (float*)&projection_matrix, focus_distance, range_w, range_h, rendering_property2, dx11_core);
 					break;
 				}
 			}
@@ -751,7 +760,7 @@ void RenderingCoreDX11(std::vector<LawData>& data_list,  int screen_w, int scree
 		}else{
 			//通常のレンダリング//
 			for (auto& a : data_list) {
-				RenderingOneDX11_2(a, view_matrix_t, (float*)&projection_matrix, focus_distance, rendering_property, dx11_core);
+				RenderingOneDX11_2(a, view_matrix_t, (float*)&projection_matrix, focus_distance, range_w, range_h, rendering_property, dx11_core);
 			}			
 		}
 	} else {
@@ -808,7 +817,7 @@ void RenderingCoreDX11(std::vector<LawData>& data_list,  int screen_w, int scree
 							SetProjectionRange(rendering_property.projection_mode, image_w, image_h, real_range_x, real_range_y, real_range_w, real_range_h, focus_distance, &projection_matrix);
 							//SetProjectionGL( image_w, image_h, cam->GetForcusDistance() );
 							//RenderingOneGL15(fi, view_matrix, focus_distance, rendering_property);
-							RenderingOneDX11_2(*it, view_matrix_t, (float*)&projection_matrix, focus_distance, rendering_property, dx11_core);
+							RenderingOneDX11_2(*it, view_matrix_t, (float*)&projection_matrix, focus_distance, range_w, range_h, rendering_property, dx11_core);
 
 						}
 					}

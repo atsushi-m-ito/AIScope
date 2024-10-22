@@ -50,12 +50,12 @@ public:
     /*
     ファイルを開くときに呼び出す
     */
-	int OpenFile(const TCHAR* filepath);
+	int OpenFile(const TCHAR* filepath, HWND hWnd);
 
     /*
     ファイルを再読み込みしたいときに呼び出す
     */
-    int ReloadFile();
+    int ReloadFile(HWND hWnd);
 
 
     /*
@@ -217,7 +217,7 @@ private:
 	int m_outNumBMP;
 
 	//file load//
-	int OpenDataFile(const TCHAR* filepath);
+	int OpenDataFile(const TCHAR* filepath, HWND hWnd);
 	
 
 	AIScopeProperty* m_aiproperty;

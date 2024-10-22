@@ -19,7 +19,7 @@
 #include "TextureManagerDX11.h"
 #include "CrossSection.h"
 
-
+//Fieldと粒子を重ねたレンダリングをするためにdepth bufferをチェックする場合//
 
 class RayCastingDX_depth {
 private:
@@ -188,7 +188,7 @@ protected:
 
 		{
 			D3D11_BUFFER_DESC bd;
-			bd.ByteWidth = 64;	//16の倍数である必要がある//
+			bd.ByteWidth = 64+32;	//16の倍数である必要がある//
 			bd.Usage = D3D11_USAGE_DYNAMIC;
 			bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 			bd.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;// D3D11_CPU_ACCESS_WRITE;	//CPUからの書き換え
@@ -377,7 +377,8 @@ protected:
 	}
 
 
-	int CreateRaySurface(const mat33d& boxaxis, const vec3d& boxorg, const float* view_matrix_t, double& delta_layer) {
+	int CreateRaySurface(const mat33d& boxaxis, const vec3d& boxorg, const float* view_matrix_t, double& delta_layer,
+			int grid_x, int grid_y, int grid_z) {
 
 		const vec3d camera_pos = vec3d(view_matrix_t[0], view_matrix_t[1], view_matrix_t[2]) * (double)(-view_matrix_t[3])
 			+ vec3d(view_matrix_t[4], view_matrix_t[5], view_matrix_t[6]) * (double)(-view_matrix_t[7])
@@ -437,12 +438,16 @@ protected:
 			box_vertex[i] = v_from_com * (nearest_screen_normal / dz_com) + camera_pos;
 
 			//点の移動に合わせてuvwの座標も引き戻す//
-			uvw[i] += (vec3f)(inv_M_abc * (box_vertex[i] - v));
+			//uvw[i] += (vec3f)(inv_M_abc * (box_vertex[i] - v));
+			uvw[i] = (vec3f)(inv_M_abc * (box_vertex[i] - boxorg));
+			//テクセルとピクセルのずれを補正//
+			//ref: http://maverickproj.web.fc2.com/pgMemo.html
+			//GPUの仕様であるテクスチャの色はセル中心の色.
+			//一方でUV座標はとセルのグリッド線.
 
-			//const double dz_u = Unit(v_from_com) * camera_direction;
-			//const double factor = delta_layer / dz_u;
-			//const double factor = 1.0/ dz_u;
-			//ray[i] *= factor;
+			uvw[i].x += 0.5 / (double)grid_x;
+			uvw[i].y += 0.5 / (double)grid_y;
+			uvw[i].z += 0.5 / (double)grid_z;
 		}
 
 
@@ -503,6 +508,7 @@ protected:
 	CrossSection cross_section[9] = { 0.0f };
 
 	int mSetBoxBoundary(const mat33d& boxaxis, const vec3d& boxorg, CrossSection* cross_section) {
+		/*
 		vec4f point;
 		point.Set(boxorg.x, boxorg.y, boxorg.z, 0.0f);
 		//point.Set(0.0f, 0.0f, 0.0f, 0.0f);
@@ -519,14 +525,36 @@ protected:
 		cross_section[3].normal.Set(boxaxis.a.x, boxaxis.a.y, boxaxis.a.z, 0.0f);
 		cross_section[4].point = point;
 		cross_section[4].normal.Set(boxaxis.b.x, boxaxis.b.y, boxaxis.b.z, 0.0f);
+		const vec3d v3((boxaxis.a + boxaxis.b + boxaxis.c) / 2.0 + boxorg);//
+		point.Set(v3.x, v3.y, v3.z, 0.f);
 		cross_section[5].point = point;
 		cross_section[5].normal.Set(boxaxis.c.x, boxaxis.c.y, boxaxis.c.z, 0.0f);
-		/*
-		//user definied cross section
-		const vec3d v3((boxaxis.a + boxaxis.b + boxaxis.c)*0.5 + boxorg);//
-		cross_section[6].point.Set(v3.x, v3.y, v3.z, 0.0f);
-		cross_section[6].normal.Set(1.0f, -1.0f, 0.0f, 0.0f);
 		*/
+		
+		vec3d v((boxaxis.b + boxaxis.c)/2.0 + boxorg);//
+		
+		cross_section[0].point.Set(v.x,v.y,v.z,0.0f);
+		cross_section[0].normal.Set(-boxaxis.a.x, -boxaxis.a.y, -boxaxis.a.z, .0f);
+		v = vec3d((boxaxis.a + boxaxis.c) / 2.0 + boxorg);//
+		cross_section[1].point.Set(v.x, v.y, v.z, 0.0f);
+		cross_section[1].normal.Set(-boxaxis.b.x, -boxaxis.b.y, -boxaxis.b.z, 0.0f);
+		v = vec3d((boxaxis.a + boxaxis.b) / 2.0 + boxorg);//
+		cross_section[2].point.Set(v.x, v.y, v.z, 0.0f);
+		cross_section[2].normal.Set(-boxaxis.c.x, -boxaxis.c.y, -boxaxis.c.z, 0.0f);
+		
+		
+		
+		v = vec3d(boxaxis.a + (boxaxis.b + boxaxis.c) / 2.0 + boxorg);//
+		cross_section[3].point.Set(v.x, v.y, v.z, 0.0f);
+		cross_section[3].normal.Set(boxaxis.a.x, boxaxis.a.y, boxaxis.a.z, 0.0f);
+		v = vec3d(boxaxis.b + (boxaxis.a + boxaxis.c) / 2.0 + boxorg);//
+		cross_section[4].point.Set(v.x, v.y, v.z, 0.0f);
+		cross_section[4].normal.Set(boxaxis.b.x, boxaxis.b.y, boxaxis.b.z, 0.0f);
+		v = vec3d(boxaxis.c + (boxaxis.a + boxaxis.b) / 2.0 + boxorg);//
+		cross_section[5].point.Set(v.x, v.y, v.z, 0.0f);
+		cross_section[5].normal.Set(boxaxis.c.x, boxaxis.c.y, boxaxis.c.z, 0.0f);
+		
+
 		return 6;
 	}
 
@@ -587,7 +615,14 @@ public:
 		float alpha_max = 1.0f;
 	};
 
-	void DrawField(const FIELD3D_FRAME* field, ColorRange range, const float* view_matrix_t, ID3D11ShaderResourceView* depthRV) {
+	vec3f ComeraPos(const float* view_matrix_t) {
+		return vec3f{ -(view_matrix_t[0] * view_matrix_t[3] + view_matrix_t[4] * view_matrix_t[7] + view_matrix_t[8] * view_matrix_t[11]),
+			-(view_matrix_t[1] * view_matrix_t[3] + view_matrix_t[5] * view_matrix_t[7] + view_matrix_t[9] * view_matrix_t[11]),
+			-(view_matrix_t[2] * view_matrix_t[3] + view_matrix_t[6] * view_matrix_t[7] + view_matrix_t[10] * view_matrix_t[11]) };
+	}
+
+
+	void DrawField(const FIELD3D_FRAME* field, ColorRange range, const float* view_matrix_t, const float* projector_matrix_t, int screen_w, int screen_h, ID3D11ShaderResourceView* depthRV) {
 
 		m_vbo_vertex.clear();
 		m_vbo_indexes.clear();
@@ -596,7 +631,7 @@ public:
 
 		//double delta_layer = 0.2*std::min<double>(std::min<double>((field->boxaxis.a.x / field->grid_x), (field->boxaxis.b.y / field->grid_y)), (field->boxaxis.c.z / field->grid_z));
 		double delta_layer = 0.5 * std::min<double>(std::min<double>((field->boxaxis.a.x / field->grid_x), (field->boxaxis.b.y / field->grid_y)), (field->boxaxis.c.z / field->grid_z));
-		int num_marching = CreateRaySurface(field->boxaxis, field->boxorg, view_matrix_t, delta_layer);
+		int num_marching = CreateRaySurface(field->boxaxis, field->boxorg, view_matrix_t, delta_layer, field->grid_x, field->grid_y, field->grid_z);
 
 		int num_cross_section = mSetBoxBoundary(field->boxaxis, field->boxorg, cross_section);
 
@@ -674,6 +709,15 @@ public:
 			//float f3[3]; f3[0] = 1.0f; f3[1] = 1.0f; f3[2] = 1.0f;
 			CopyMemory((uint8_t*)(mappedResource.pData) + 4 * 5, &delta_ray_f, sizeof(float));
 			CopyMemory((uint8_t*)(mappedResource.pData) + 4 * 6, &inv_M_abcf, sizeof(float) * 9);
+
+			float screen_w_f = (float)screen_w;
+			float screen_h_f = (float)screen_h;
+			vec3f com_pos{ ComeraPos(view_matrix_t) };
+			CopyMemory((uint8_t*)(mappedResource.pData) + 4 * 15, &screen_w_f, sizeof(float) * 1);
+			CopyMemory((uint8_t*)(mappedResource.pData) + 4 * 16, &screen_h_f, sizeof(float) * 1);
+			CopyMemory((uint8_t*)(mappedResource.pData) + 4 * 17, &com_pos, sizeof(float) * 3);
+			CopyMemory((uint8_t*)(mappedResource.pData) + 4 * 20, &projector_matrix_t[10], sizeof(float) * 2);//P_33 and P_43
+			//CopyMemory((uint8_t*)(mappedResource.pData) + 4 * 21, &projector_matrix_t[11], sizeof(float) * 1);
 			renderer.m_pD3DDeviceContext->Unmap(m_pCB_num_marching, 0);
 		}
 

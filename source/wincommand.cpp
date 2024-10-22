@@ -98,6 +98,7 @@ void OutputSequentialMD3(HWND hWnd);
 void OutputSequentialBMP_Trace(HWND hWnd);
 void OutputSequentialBMP_Rotation(HWND hWnd, int rotate_axis, double radian);
 void OutputRotationalBMP(HWND hWnd, double radian);
+void ResetCrossSection(const vec3d& box_center);
 
 int WinCommand(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam, AIScope& g_aiscope, AIScopeProperty* aiproperty){
 	TCHAR spath[1024];
@@ -146,12 +147,13 @@ int WinCommand(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam, AIScope& g
 
 			if (GetOpenFileName ( &ofn ) ){
 
-				g_aiscope.OpenFile(szFile);
+				g_aiscope.OpenFile(szFile, hWnd);
 				if (g_aiscope.ExistData()){
 					double focus_distance;
 					vec3d target_position;
 					g_aiscope.GetFocusInfomation(&focus_distance, &target_position);
 					g_uicamera.ResetFocus(focus_distance, target_position);
+					ResetCrossSection(target_position);
 					ApplySetting(aiproperty, g_aiscope.GetNumAtoms());
 				}
 				ResetCurrentFileMenu(hWnd, g_aiscope.GetFileType());

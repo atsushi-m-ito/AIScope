@@ -19,7 +19,7 @@
 #include "TextureManagerDX11.h"
 #include "CrossSection.h"
 
-
+//Fieldだけをレンダリングをする場合, 粒子とは重ねられない//
 
 class RayCastingDX {
 private:

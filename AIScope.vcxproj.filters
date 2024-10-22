@@ -799,6 +799,7 @@
   <ItemGroup>
     <Text Include="更新履歴.txt" />
     <Text Include="定数一覧.txt" />
+    <Text Include="setting.ini" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="source\AIScope.rc">

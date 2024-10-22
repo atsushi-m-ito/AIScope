@@ -38,8 +38,13 @@ cbuffer CBuffer : register(b0)
 	float inv_abc_m23;
 	float inv_abc_m33;
 
-	float dummy1;
-
+	float screen_w;
+	float screen_h;
+	float comera_x;
+	float comera_y;
+    float comera_z;
+    float P_33;
+    float P_43;
 };
 
 
@@ -55,6 +60,9 @@ cbuffer CBuffer1 : register(b1)
 	* とするか、1D textureとして生成する
 	* 同じ理由で
 	* float 3 also needs 16 byte packing, then float 4 should be used for 3D vector.
+	*
+	* 最初の6つ(2*6)はボックスの境界面
+	* 続く3つ(2*3)はユーザー定義断面
 	*/
 	//float cross_sections[8 * 9];
 	float4 cross_sections[2 * 9];
@@ -64,11 +72,12 @@ cbuffer CBuffer1 : register(b1)
 struct PS_INPUT
 {
 	float4 pos : SV_POSITION;
-	float3 ray : RAY;	
+	//float3 ray : RAY;	
 	float3 tex : TEXCOORD;         // テクスチャ座標
 	float3 org_pos : POSITION0;
-	float4 proj_pos : POSITION1;
-	float4 ray_z : Z_VIEW_RAY;
+	//float4 proj_pos : POSITION1;
+	//float4 ray_z : Z_VIEW_RAY;
+	//float4 test : RAY2;	
 };
 
 /*
@@ -260,28 +269,41 @@ float4 main_front_to_back5_depth(PS_INPUT input) : SV_Target
 {
 	const float3 uvw0 = input.tex;
 
-	float3 ray = input.ray;
-	ray = normalize(ray);
 	
-	float2 depth_uv = float2(input.proj_pos.x / input.proj_pos.w * 0.5f + 0.5f, -input.proj_pos.y / input.proj_pos.w * 0.5f + 0.5f);
+	//bug, accuracy is not enough when ray is recieved from vertex shader//
+	//float3 ray = input.ray;
+	
+	//accuracy is enough when ray is calculated in pixel chader by using camera position in world coordinate//
+	float3 ray = (input.org_pos - float3(comera_x, comera_y, comera_z)); 	
+	const float init_length_ray = sqrt(mul(ray,ray));
+	//ray = normalize(ray);
+    const float dt = delta_ray / init_length_ray;
+
+
+	
+	
+	//float2 depth_uv = float2(input.proj_pos.x / input.proj_pos.w * 0.5f + 0.5f, -input.proj_pos.y / input.proj_pos.w * 0.5f + 0.5f);
+	//float2 depth_uv = float2(input.pos.x * 0.5f + 0.5f, input.pos.y * 0.5f + 0.5f);
+    float2 depth_uv = float2(input.pos.x / screen_w, input.pos.y / screen_h);
 	float depth = depth2d.Sample(samp_depth, depth_uv);
 
 	//float z_f = z-far limit in veiw coordinate;
 	//float z_n = z-near limit in veiw coordinate;
-	//float z_v = z_f * z_n / (z_f - (z_f - z_n) * depth);
+	//float z_d = z_f * z_n / (z_f - (z_f - z_n) * depth);
 
-	float P33 = input.ray_z.x; //projection matrix m33 = z_f / (z_f - z_n)
-	//float z_n = input.ray_z.y; // = - m43 / m33 
-	//float z_v = P33 * z_n / (P33 - depth);
-	float P43 = input.ray_z.y;
-	float z_v = -P43 / (P33 - depth);
-	//input.ray_z.z is ray.z in view coordinate;
-	//input.ray_z.w is pos.z in view coordinate;
-	float t_depth = (z_v - input.ray_z.w) / input.ray_z.z;
+	//P_33 == z_f / (z_f - z_n)
+	//P_43 == -z_n*z_f / (z_f - z_n)
+	float z_d = -P_43 / (P_33 - depth);
+	//here, input.pos.w == z_v, and z_v is z_coordinate of ray in view coordinate before normalized//
+	//init_length_ray is length of 
+	float t_depth = (z_d / input.pos.w );
+
 
 	//Estimate cross point between ray and boundary/cross-sections//
 	//t_start and t_end is the range of ray-marching//
-	const float3 org_ray = ray;
+
+	const float3 org_ray = ray; 
+
 	const float3 org_pos = input.org_pos;
 
 	
@@ -294,10 +316,10 @@ float4 main_front_to_back5_depth(PS_INPUT input) : SV_Target
 		for (int k = 0; k < 2 * 6; k += 2) {
 			const float3 n = normalize(cross_sections[k + 1]).xyz;
 			const float r_n = inner(org_ray, n);
-			const float t = inner(float3(cross_sections[k].x - org_pos.x, cross_sections[k].y - org_pos.y, cross_sections[k].z - org_pos.z), n) / r_n;
+            const float t = inner(float3(cross_sections[k].x - comera_x, cross_sections[k].y - comera_y, cross_sections[k].z - comera_z), n) / r_n;
 			if (r_n < 0.0) {
 				t_start = max(t, t_start);
-			} else if (r_n > 0.0) {
+			} else /*if (r_n > 0.0)*/ {
 				if (t < 0.0) {
 					t_start = t_end;
 				} else {
@@ -313,31 +335,36 @@ float4 main_front_to_back5_depth(PS_INPUT input) : SV_Target
 	t_end = t_box_end;
 	float t_start2 = t_box_end;
 	float t_end2 = t_box_end;
-	//float and_or_flag[3] = { 0.0f,0.0f, 1.0f };
-	float red = 0.0f;
-	float blue = 0.0f;
 	int num_user_effective = 0;
 	{//for user cross section boundary
 		for (int k = 2 * 6; k < 2 * 9; k += 2) {
 			const float3 n = normalize(cross_sections[k + 1]).xyz;
 			const float r_n = inner(org_ray, n);
-			const float t = inner(float3(cross_sections[k].x - org_pos.x, cross_sections[k].y - org_pos.y, cross_sections[k].z - org_pos.z), n) / r_n;
+            const float t = inner(float3(cross_sections[k].x - comera_x, cross_sections[k].y - comera_y, cross_sections[k].z - comera_z), n) / r_n;
 
 			//if ((and_or_flag[k / 2 - 6] == 0.0f) || (k / 2 - 6 == 0)) {//for and//
-			if ((cross_sections[k + 1].w == 0.0f) || (num_user_effective == 0)) {//for and//			
-				if (r_n < 0.0) {
-					and_range(min(t,t_box_end), t_box_end, t_start, t_end, t_start2, t_end2);  //for and//
-					++num_user_effective;
-				} else if (r_n > 0.0) {
-					if (t < t_box_start) {
-						and_range(t_box_end, t_box_end, t_start, t_end, t_start2, t_end2);  //for and//
-					} else {
-						and_range(t_box_start, t, t_start, t_end, t_start2, t_end2);  //for and//																	
-					}
-					++num_user_effective;
-				}
+			//wにand_orのflagがセットされている. 0ならand//
+            if ((cross_sections[k + 1].w == 0.0f) || (num_user_effective == 0)) { //for and//			
+                if (r_n < 0.0)
+                {
+                    and_range(min(t, t_box_end), t_box_end, t_start, t_end, t_start2, t_end2); //for and//
+                    ++num_user_effective;
+                }
+                else if (r_n > 0.0)
+                {
+                    if (t < t_box_start)
+                    {
+                        and_range(t_box_end, t_box_end, t_start, t_end, t_start2, t_end2); //for and//
+                    }
+                    else
+                    {
+                        and_range(t_box_start, t, t_start, t_end, t_start2, t_end2); //for and//																	
+                    }
+                    ++num_user_effective;
+                }
 
-			} else {//for or//
+            }
+			else { //for or//
 				if (r_n < 0.0) {
 					if (t <= t_box_end) {
 						or_range(max(t, t_box_start), t_box_end, t_start, t_end, t_start2, t_end2);//for or//
@@ -357,34 +384,30 @@ float4 main_front_to_back5_depth(PS_INPUT input) : SV_Target
 			}
 		}
 	}
-	red = (t_start - t_box_start) / (t_box_end - t_box_start);
-	blue = (t_box_end - t_start2) / (t_box_end - t_box_start);
+	
 	and_range(t_box_start, t_box_end, t_start, t_end, t_start2, t_end2);  //for and//
 
-
+	
 	ray = float3(inv_abc_m11 * ray.x + inv_abc_m12 * ray.y + inv_abc_m13 * ray.z,
 		inv_abc_m21 * ray.x + inv_abc_m22 * ray.y + inv_abc_m23 * ray.z,
 		inv_abc_m31 * ray.x + inv_abc_m32 * ray.y + inv_abc_m33 * ray.z);
-
-
-	//ray = float3(inv_abc_a * ray.x, inv_abc_b * ray.y, inv_abc_c * ray.z);
-	//ray = float3(ray.x*0.2f, ray.y * 0.2f, ray.z * 0.2f);
-	float total_color = 0.0f;// tex3d.Sample(samp, input.tex.xyz).r;
+		
+	
+	float total_color = 0.0f;
 	float total_alpha = 0.0f;
 	float dx = 0.25f;  //here, dx=025 is magic number, and both this for coloe and alpha should be same value. //
-	//float integral_alpha = 0.0;  //here, int a(x) dx //
 	float t = t_start;
-	//uvw += ray * ((t - t_start) / delta_ray);
-
+	
+	
 	int sector = 0;
 	//corresponding to step i = 0//
 	if (t < t_end) {
-		const float3 uvw = uvw0 + (ray * t);  //手前のbox境界 or cross-sectionを始点にする//
+        const float3 uvw = uvw0 + (ray * (t - 1.0f)); //uvw0はt=1地点のuvw値//
 		const float c = tex3d.Sample(samp, uvw.xyz).r;
 		total_color = c;
 		total_alpha = NormalizeAlpha(c);
 
-		t += delta_ray;
+        t += dt;
 		sector = 1;
 	}
 	float t_sector = t_end;
@@ -394,16 +417,18 @@ float4 main_front_to_back5_depth(PS_INPUT input) : SV_Target
 		{
 
 			if (total_alpha < 1.0f) {
-				const float3 uvw = uvw0 + (ray * t);  //手前のbox境界 or cross-sectionを始点にする//
+                const float3 uvw = uvw0 + (ray * (t - 1.0f)); //uvw0はt=1地点のuvw値//
 				const float c = tex3d.Sample(samp, uvw.xyz).r;
 
 				//estimate color//
 				//const float v = Normalize(c);
 				const float a = NormalizeAlpha(c);
 
-
-				const float ratio = min(max(0.0f, t_sector - (t - delta_ray)), delta_ray) / delta_ray;//for supress noize//
-
+				//終点付近のノイズが入るのを防ぐ//
+				//t + dt > t_sector(t_end)になった時に、dtを小さくしてt_sector=t+dt'ピッタリになるように重みを下げる//
+                const float ratio = min(max(0.0f, t_sector - (t - dt)), dt) / dt; //for supress noize//
+  
+				
 				//total_color = max(total_color, c);
 				//total_color = total_color * total_alpha + c * (1.0f - total_alpha);
 				total_color += (1.0f - total_alpha) * (c - total_color) * dx * ratio;
@@ -420,7 +445,7 @@ float4 main_front_to_back5_depth(PS_INPUT input) : SV_Target
 						t = t_start2;
 						t_sector = t_end2;
 
-						const float3 uvw = uvw0 + (ray * t);  //手前のbox境界 or cross-sectionを始点にする//
+                        const float3 uvw = uvw0 + (ray * (t - 1.0f)); //uvw0はt=1地点のuvw値//
 						const float c = tex3d.Sample(samp, uvw.xyz).r;
 						const float a = NormalizeAlpha(c);
 						//total_color += (1.0f - total_alpha) * (c - total_color) ;
@@ -430,7 +455,7 @@ float4 main_front_to_back5_depth(PS_INPUT input) : SV_Target
 				}
 
 			}
-			t += delta_ray;
+            t += dt;
 
 		}
 	}

@@ -101,8 +101,10 @@ public:
 
 
 
+
 	//VBOの設定
-	void Draw(KRB_INFO* dat, uint32_t trajectory_color, const VISUAL_SETTING& vis) {	//int j_mode, float Jmax
+	template<class FUNC>
+	void DrawFunc(KRB_INFO* dat, uint32_t trajectory_color, const VISUAL_SETTING& vis, FUNC func) {	//int j_mode, float Jmax
 
 
 		if (dat == NULL) return;
@@ -178,7 +180,7 @@ public:
 			while (i_start < i_end) {
 
 
-				int next_start = CreateBond(i_start, i_end, vbo_v_count, vbo_i_count, dat, trajectory_color, vis.history_frame);
+				int next_start = CreateBond(i_start, i_end, vbo_v_count, vbo_i_count, dat, trajectory_color, vis.history_frame, func);
 
 
 				if (m_vbo_icount) {
@@ -205,7 +207,7 @@ public:
 			while (next_remained) {
 
 
-				next_remained = CreateSphere(vbo_v_count, vbo_i_count);
+				next_remained = CreateSphere(vbo_v_count, vbo_i_count, func);
 
 
 
@@ -223,6 +225,12 @@ public:
 
 		m_prev_krb_info = *dat;
 		m_prev_vis = vis;
+	}
+
+
+	//VBOの設定
+	void Draw(KRB_INFO* dat, uint32_t trajectory_color, const VISUAL_SETTING& vis) {	//int j_mode, float Jmax
+		DrawFunc(dat, trajectory_color, vis, [](vec3f r, uint32_t color) {return true; });
 	}
 
 	void SetViewAndProjectionMatrix(const float* pViewMatrix, const float* pProjectionMatrix) {
@@ -254,8 +262,8 @@ private:
 
 
 
-
-	int CreateSphere(int limit_v_count, int limit_i_count) {
+	template<class FUNC>
+	int CreateSphere(int limit_v_count, int limit_i_count, FUNC func) {
 
 		int num_v_count = m_geometry_sphere->GetNumVertexes();
 		int num_i_count = m_geometry_sphere->GetNumIndexes();
@@ -266,7 +274,8 @@ private:
 		//原子(球)のセット//
 
 		for (auto it = m_particles.begin(); it != m_particles.end(); ++it) {
-			if (it->second.color_table & 0xFF000000) {	//完全透過は表示しない//
+			if ((it->second.color_table & 0xFF000000)   //完全透過は表示しない//
+				&& func(it->second.position, it->second.color_table)){
 
 				if (m_vbo_vcount + num_v_count > limit_v_count) {
 					return true;
@@ -290,8 +299,8 @@ private:
 
 	}
 
-
-	int CreateBond(int i_begin, int i_end, int limit_v_count, int limit_i_count, KRB_INFO* dat, uint32_t trajectory_color, int history_frame) {
+	template<class FUNC>
+	int CreateBond(int i_begin, int i_end, int limit_v_count, int limit_i_count, KRB_INFO* dat, uint32_t trajectory_color, int history_frame, FUNC func) {
 
 
 		const int geo_v_count = m_geometry_bond->GetNumVertexes();
@@ -331,8 +340,7 @@ private:
 					//二回目以降なので軌道を描画//				
 					vec3f next_pos;
 					next_pos.Set(particle[i].x, particle[i].y, particle[i].z);
-					if (i >= lower_visual_frame) {
-
+					if ((i >= lower_visual_frame) && func(next_pos, 0xFFFFFFFF)){
 
 						vec3f dv = res.first->second.position - next_pos;
 						if ((fabs(dv.x) < half_x) && (fabs(dv.y) < half_y) && (fabs(dv.z) < half_z)) {

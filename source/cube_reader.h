@@ -43,7 +43,10 @@ public:
 		if (fgets(line, 1024, fp) == NULL) { fclose(fp); return NULL; }	//z方向のメッシュ数とx軸
 		sscanf(line, "%d %lf %lf %lf", &(frame->grid_z), &(frame->boxaxis.c.x), &(frame->boxaxis.c.y), &(frame->boxaxis.c.z));
 
-		frame->boxorg -= (frame->boxaxis.a + frame->boxaxis.b + frame->boxaxis.c) / 2.0;
+		//orgの補正は辞めた
+		//ズレの原因はGPUの仕様
+		//frame->boxorg -= (frame->boxaxis.a + frame->boxaxis.b + frame->boxaxis.c) / 2.0;
+
 		frame->boxaxis.a *= (double)frame->grid_x;
 		frame->boxaxis.b *= (double)frame->grid_y;
 		frame->boxaxis.c *= (double)frame->grid_z;
@@ -79,6 +82,8 @@ public:
 		size_t iz = 0;
 		const size_t iz_end = (frame->grid_z);
 		const char* const endptr = line + SIZE - 1;
+		double lastone = 0.0;
+		int readnum = 0;
 		while (fgets(line, SIZE, fp) != NULL) {
 			
 			const char* tp = strtok(line, " \t\r\n");
@@ -90,8 +95,8 @@ public:
 
 				size_t index = ix + (frame->grid_x) * (iy + (frame->grid_y) * iz);
 				values[index] = vp;
-
-
+				lastone = vp;
+				++readnum;
 				//最大値の取得
 				if (maxvalue < (vp)) { maxvalue = vp; }
 				if (minvalue > (vp) && (vp > 0.0)) { minvalue = vp; }

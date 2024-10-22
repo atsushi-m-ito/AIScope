@@ -3,6 +3,8 @@
 
 #define  _CRT_NON_CONFORMING_SWPRINTFS
 #include <tchar.h>
+#include <windows.h>
+#include <commctrl.h>
 #include <chrono>
 #include "AIScope.h"
 #include "setting.h"
@@ -111,11 +113,11 @@ void AIScope::GetFocusInfomation(double* focus_distance, vec3d* target_position)
 }
 
 	
-int AIScope::OpenFile(const TCHAR* filepath){
+int AIScope::OpenFile(const TCHAR* filepath, HWND hWnd){
 	
 	
 	
-	if (OpenDataFile(filepath)) {
+	if (OpenDataFile(filepath, hWnd)) {
 
 		switch (m_data_list.back().type) {
 		case FILETYPE_ATOM:
@@ -147,7 +149,7 @@ int AIScope::OpenFile(const TCHAR* filepath){
 }
 
 
-int AIScope::OpenDataFile(const TCHAR* filepath) {
+int AIScope::OpenDataFile(const TCHAR* filepath, HWND hWnd) {
 
 	TCHAR* long_path = nullptr;
 	
@@ -279,11 +281,18 @@ int AIScope::OpenDataFile(const TCHAR* filepath) {
 
 
 
-			//連番ファイルを読み込む///////////////////////////////
+			//便利関数///////////////////////////////
 			auto isNumberChar = [](TCHAR c) {
 				return (c >= _T('0')) && (c <= _T('9'));
 			};
+			auto isOnlyNumber = [&isNumberChar](const TCHAR* text, int i_begin, int i_end) {
+				for (int i = i_begin; i < i_end; ++i) {
+					if (!isNumberChar(text[i])) return false;
+				}
+				return true;
+				};
 
+			//連番ファイルを読み込む///////////////////////////////
 			//ファイル名の数字をワイルドカードに変更//
 			TCHAR* wild_path = _tcsdup(long_path);
 			int pos_wild = -1;
@@ -306,22 +315,69 @@ int AIScope::OpenDataFile(const TCHAR* filepath) {
 				const int ihead_filename = (pend_dir) ? (pend_dir - tmp_path) + 1 : 0;
 				pos_wild = pos_wild - ihead_filename;
 
-				bool is_found_me = false;
 				WIN32_FIND_DATA info;
 				auto hFind = FindFirstFile(wild_path, &info);
 				int is_found = (hFind != INVALID_HANDLE_VALUE);
+				
+				HWND hPrgressBar = 0;
+				if (is_found) {//プログレスバーコントロールの作成//
+					RECT rect;
+					GetWindowRect(hWnd, &rect);
+					const LONG ww = rect.right - rect.left;
+					const LONG wh = rect.bottom - rect.top;
+
+					hPrgressBar = CreateWindowEx(0, PROGRESS_CLASS, TEXT("reading cube files"),
+						WS_CHILD | WS_VISIBLE | WS_BORDER | PBS_SMOOTH,
+						//WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | CCS_NODIVIDER,
+						ww / 10, (wh * 7)/20, (ww * 8) /10, (wh) / 20,
+						hWnd, 0,
+						(HINSTANCE)GetWindowLong(hWnd, GWLP_HINSTANCE), NULL);
+					//ShowWindow(hPrgressBar, SW_SHOW);
+
+					if (hPrgressBar) {
+						//ウィンドウ生成成功//
+						//ファイル数を取得
+						int num_target_files = 0;
+
+						bool is_found_me = false;
+						while (is_found) {
+							//found//
+							if (_tcscmp(info.cFileName, long_path + ihead_filename) == 0) {
+								is_found_me = true;
+							} else {
+								if (is_found_me) { //not の場合はまだ最初に開いたファイルよりも若い番号なので無視する//
+
+									if (!isOnlyNumber(info.cFileName, pos_wild, _tcslen(info.cFileName) - 5)) {	//5 is length of ".cube"//
+										break;//読み込み終了
+									}
+
+									//連番ファイルとして認めた//
+									num_target_files++;
+
+								}
+							}							
+							is_found = FindNextFile(hFind, &info);
+						}
+
+
+						SendMessage(hPrgressBar, PBM_SETRANGE32, 0, num_target_files);
+
+						SendMessage(hPrgressBar, PBM_SETSTEP, (WPARAM)1, 0);
+
+						//reset 
+						hFind = FindFirstFile(wild_path, &info);
+						is_found = (hFind != INVALID_HANDLE_VALUE);
+					}
+				}
+
+				bool is_found_me = false;
 				while (is_found) {
 					//found//
 					if (_tcscmp(info.cFileName, long_path + ihead_filename)==0){
 						is_found_me = true;
 					} else {
 						if (is_found_me) { //not の場合はまだ最初に開いたファイルよりも若い番号なので無視する//
-							auto isOnlyNumber = [&isNumberChar](const TCHAR* text, int i_begin, int i_end) {
-								for (int i = i_begin; i < i_end; ++i) {
-									if (!isNumberChar(text[i])) return false;
-								}
-								return true;
-							};
+							
 							if (!isOnlyNumber(info.cFileName, pos_wild, _tcslen(info.cFileName) - 5)) {	//5 is length of ".cube"//
 								break;//読み込み終了
 							}
@@ -336,11 +392,16 @@ int AIScope::OpenDataFile(const TCHAR* filepath) {
 							}
 
 
+							SendMessage(hPrgressBar, PBM_STEPIT, 0, 0);
 						}
 					}
-
 					is_found = FindNextFile(hFind, &info);
 				}
+
+				if (hPrgressBar) {
+					DestroyWindow(hPrgressBar);
+				}
+
 				delete[] tmp_path;
 			}
 			delete[] wild_path;
@@ -386,11 +447,11 @@ int AIScope::OpenDataFile(const TCHAR* filepath) {
 
 }
 
-int AIScope::ReloadFile() {
+int AIScope::ReloadFile(HWND hWnd) {
 
 
 
-	if (OpenDataFile(m_data_list[0].filepath)) {
+	if (OpenDataFile(m_data_list[0].filepath, hWnd)) {
 		/*
 		もし動かないとするとこの処理を省いたための可能性がある
 		m_data_list.back().ReplaceToHead();
